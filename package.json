@@ -1,0 +1,31 @@
+{
+  "name": "ts-interpreter.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ts-compiler",
+    "ts-interpreter",
+    "ts-runtime",
+    "compiler",
+    "interpreter",
+    "runtime",
+    "typescript",
+    "javascript",
+    "ts",
+    "js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaisei-kto/ts-interpreter.js.git"
+  },
+  "author": "kaisei-kto",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.46.1",
+    "uglify-js": "^3.17.4"
+  }
+}

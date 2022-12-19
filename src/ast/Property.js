@@ -1,0 +1,28 @@
+/**
+ * 
+ * @param {import("@typescript-eslint/types/dist/generated/ast-spec").Property} ast 
+ */
+module.exports = ast => {
+	const key = require(`./${ast.key.type}`)(ast.key);
+	const value = require(`./${ast.value.type}`)(ast.value);
+	let header = `${ast.computed ? '[' : ''}${key}${ast.computed ? ']' : ''}`;
+	let footer = value;
+	if (ast.shorthand) {
+		return key
+	}
+
+	if (ast.kind !== 'init') {
+		footer = footer.split(' ')
+		footer.splice(footer.findIndex(s => s === 'function'), 1)
+
+		header = `${ast.kind} ${header}`;
+		footer = footer.join(' ')
+	} else {
+		header += ': ';
+		if (ast.value.type === 'FunctionExpression') {
+			footer = `${value}`;
+		}
+	}
+
+	return `${header}${footer}`;
+}
