@@ -47,6 +47,9 @@ function init (file_path) {
 		writeFileSync(fpath, output);
 	}
 
+	// console.log(file_path);
+	// console.log(output);
+
 	return output
 }
 

@@ -19,7 +19,7 @@ export interface c<K, V> extends Map<K, V> {
 let count = 0;
 count += 5
 
-if ((count += 5) === 10) {
+if ((count *= Math.random()) === 10) {
 	console.log('this is poggers');
 }
 
