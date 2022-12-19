@@ -23,4 +23,14 @@ for (const a in global) {
 	break;
 }
 
+let established = false; // eslint is weird
+while (!established) {
+	try {
+		// await ping();
+		established = true;
+	} catch { void -1; }
+	
+	// await wait(1);
+}
+
 console.log('Loaded a ts file;', __filename);

@@ -1,8 +1,8 @@
-# ts-interpreter.js
+# ts-interpreter.js [ TypeScript Runtime Compiler ]
 
 #### This package will allow you to use `require` on `.ts` files from any `.js` files using our runtime compiler!
 
-50% of the AST provided are covered and converted into JavaScript
+70% of the AST provided are covered and converted into JavaScript
 
 #
 # Installation

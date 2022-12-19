@@ -1,7 +1,13 @@
-const { existsSync } = require('node:fs');
+const { existsSync, readdirSync } = require('node:fs');
+const { join } = require('node:path');
 const { resolve } = require('path');
 const { minify } = require('uglify-js');
 const prettier = require('./prettier');
+const ast_path = join(__dirname, 'ast');
+
+for (const f of readdirSync(ast_path)) {
+	require(join(ast_path, f));
+}
 
 /**
  * 

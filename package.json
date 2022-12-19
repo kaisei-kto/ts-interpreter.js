@@ -1,6 +1,6 @@
 {
   "name": "ts-interpreter.js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,9 @@
     "ts-compiler",
     "ts-interpreter",
     "ts-runtime",
+    "typescript compiler",
+    "typescript interpreter",
+    "typescript runtime",
     "compiler",
     "interpreter",
     "runtime",
