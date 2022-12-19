@@ -1,3 +1,5 @@
+export default class {}
+
 class a {
 
 }
