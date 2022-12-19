@@ -66,8 +66,14 @@ require.extensions['.ts'] = function(module) {
 	sandbox.global = sandbox;
 	sandbox.root = global;
 
-	const context = createContext(sandbox);
-	const script = new Script(code);
+	const context = createContext(sandbox, {
+		name: module.id + ' (internal)'
+	});
+	const script = new Script(code, {
+		filename: module.id + ' (internal)'
+	});
 
-	return script.runInContext(context);
+	return script.runInContext(context, {
+		filename: module.id + ' (internal)',
+	});
 }
