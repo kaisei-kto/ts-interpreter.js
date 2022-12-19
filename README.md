@@ -20,5 +20,5 @@ console.log(`Took ${Date.now() - start} ms to interpret .ts file into a .js runt
 ```
 
 # Packages
-## [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser)
-## [vm](https://npmjs.com/package/vm)
+[@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser)
+[vm](https://npmjs.com/package/vm)
