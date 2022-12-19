@@ -4,17 +4,10 @@ export function log(...args) {
 	console.log(...args);
 }
 
-export const a = null;
-export var b;
-
 export const c = {
 	a: async function* yoyo() {
-
+		
 	},
-	cv
-}
-
-export {
 	cv
 }
 
