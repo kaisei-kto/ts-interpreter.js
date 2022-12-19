@@ -13,12 +13,23 @@ class b implements a {
 	}
 }
 
+class external {
+	static pname: string = 'hmmm?';
+}
+
+class main {
+	readonly prop: string = 'no';
+	run() {
+		console.log('im running!!!!')
+		console.log(external.pname);
+	}
+}
+
 export {
 	a, b
 }
 
-const b_class = new b;
-console.log(b_class.str)
-const b_class_2 = new b(0);
-console.log(b_class_2.str)
+const m = new main();
+m.run();
+
 console.log('Loaded a ts file;', __filename);

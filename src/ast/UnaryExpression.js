@@ -5,4 +5,5 @@
 module.exports = ast => {
 	// const wrap = ['void', 'typeof', 'delete'].indexOf(ast.operator) !== -1;
 	return `${ast.operator}(${require(`./${ast.argument.type}`)(ast.argument)})`;
+	// return `${ast.operator}${wrap ? ' (' : ''}${require(`./${ast.argument.type}`)(ast.argument)}${wrap ? ')' : ''}`;
 }

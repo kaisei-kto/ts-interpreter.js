@@ -4,6 +4,11 @@
  */
 module.exports = ast => {
 	const builder = [ 'class' ];
+	let docs = []
+
+	if (ast.abstract) {
+		docs.push('abstract');
+	}
 
 	if (ast.id) {
 		if (ast.parent) {
@@ -19,8 +24,13 @@ module.exports = ast => {
 		builder.push(require(`./${ast.superClass.type}`)(ast.superClass));
 	}
 
+
 	if (ast.implements) {
-		builder.unshift(require('../utils').js_docs([[ 'implements', ...ast.implements.map(o => require(`./${o.type}`)(o)) ]]) + '\n');
+		docs.push([ 'implements', ...ast.implements.map(o => require(`./${o.type}`)(o)) ]);
+	}
+
+	if (docs.length > 0) {
+		builder.unshift(require('../utils').js_docs(docs) + '\n')
 	}
 
 	return `${builder.join(' ')} ${require('./ClassBody')(ast.body)}`;

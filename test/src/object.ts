@@ -21,3 +21,5 @@ while (typeof (r = f('')) === 'bigint') {
 export {
 	fail_safe
 }
+
+console.log('Loaded a ts file;', __filename);
