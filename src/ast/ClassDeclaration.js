@@ -19,5 +19,9 @@ module.exports = ast => {
 		builder.push(require(`./${ast.superClass.type}`)(ast.superClass));
 	}
 
+	if (ast.implements) {
+		builder.unshift(require('../utils').js_docs([[ 'implements', ...ast.implements.map(o => require(`./${o.type}`)(o)) ]]) + '\n');
+	}
+
 	return `${builder.join(' ')} ${require('./ClassBody')(ast.body)}`;
 }

@@ -2,10 +2,9 @@ class a {
 
 }
 
-class b extends a {
+class b implements a {
 	private _b;
 	constructor(b) {
-		super();
 		this._b = b
 	}
 
