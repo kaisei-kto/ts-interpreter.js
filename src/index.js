@@ -18,6 +18,7 @@ function interpret(ast, opts) {
 		if (fcall = (existsSync(fpath) ? require(fpath) : false)) {
 			const line = fcall(object);
 
+			// console.log(line);
 			if (typeof line === 'string') code.push(line);
 		}
 		else throw new ReferenceError(`${type} does not exist in the ast path`);

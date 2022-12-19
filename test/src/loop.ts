@@ -1,0 +1,26 @@
+do {
+	console.log('do-while loop');
+	break;
+} while (true);
+
+while (true) {
+	console.log('while loop');
+	break;
+}
+
+for (; ;) {
+	console.log('woah, look! a for index loop');
+	break;
+}
+
+for (const a of ['']) {
+	console.log(a, 'for of iterator loop');
+	break;
+}
+
+for (const a in global) {
+	console.log(a, 'for in iterator loop');
+	break;
+}
+
+console.log('Loaded a ts file;', __filename);
