@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "globals": {},
+    "extends": [
+        "eslint:recommended"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [],
+    "ignorePatterns": ["test.js"],
+    "rules": {
+        "indent": [
+            "off",
+            "tab"
+        ],
+        "quotes": [
+            "off",
+            "single"
+        ],
+        "semi": [
+            "off",
+            "always"
+        ],
+        "no-unused-labels":"warn"
+    }
+}

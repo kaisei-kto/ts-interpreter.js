@@ -18,6 +18,10 @@ while (typeof (r = f('')) === 'bigint') {
 	console.log('hmm')
 }
 
+if ('str' instanceof String) {
+	console.log("wow 'a boolean!")
+}
+
 export {
 	fail_safe
 }

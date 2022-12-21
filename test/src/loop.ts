@@ -34,8 +34,8 @@ while (!established) {
 }
 
 // @ts-ignore
-with ([1,2,3,4]) {
-	console.log('with statement;', toString());
-}
+// with ([1,2,3,4]) {
+// 	console.log('with statement;', toString());
+// }
 
 console.log('Loaded a ts file;', __filename);

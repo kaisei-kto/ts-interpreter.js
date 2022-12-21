@@ -1,6 +1,6 @@
 {
   "name": "ts-interpreter.js",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -29,11 +29,14 @@
   "license": "ISC",
   "dependencies": {
     "@typescript-eslint/parser": "^5.46.1",
-    "abstract-syntax-tree": "^2.20.6",
+    "clarify-plus": "^2.0.0",
     "uglify-js": "^3.17.4"
   },
   "devDependencies": {
+    "@childrentime/js-interpreter": "^1.0.9",
     "@types/node": "^18.11.17",
+    "express": "^4.18.2",
+    "node-7z": "^3.0.0",
     "tslib": "^2.4.1"
   }
 }
