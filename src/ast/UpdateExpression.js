@@ -1,3 +1,5 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").UpdateExpression} ast 
@@ -7,5 +9,5 @@ module.exports = ast => {
 	// 	console.log('update prefix!')
 	// }
 
-	return `${require(`./${ast.argument.type}`)(ast.argument)}${ast.operator}`;
+	return `${packages[ast.argument.type](ast.argument)}${ast.operator}`;
 }

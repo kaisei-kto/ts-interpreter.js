@@ -1,3 +1,5 @@
+const { packages } = require('../index');
+
 /**
  * @interface
  * @type {object}
@@ -10,5 +12,5 @@
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TSInterfaceBody} ast 
  */
 module.exports = (ast) => {
-	return ast.body.map(o => require(`./${o.type}`)(o));
+	return ast.body.map(o => packages[o.type](o));
 }

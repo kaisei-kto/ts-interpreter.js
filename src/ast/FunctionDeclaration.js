@@ -1,3 +1,5 @@
+const { packages } = require('../index');
+
 const BlockStatement = require('./BlockStatement');
 
 /**
@@ -6,7 +8,7 @@ const BlockStatement = require('./BlockStatement');
  */
 module.exports = (ast) => {
 	let fheader = `${ast.async ? 'async ' : ''}function${ast.generator ? '*' : ''}`;
-	let fparams = ast.params.map(o => require(`./${o.type}`)(o)).join(', ');
+	let fparams = ast.params.map(o => packages[o.type](o)).join(', ');
 
 	if (ast.parent) {
 		fheader = `${ast.id.name} = ${fheader}`

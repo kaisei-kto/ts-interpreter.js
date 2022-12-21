@@ -1,10 +1,12 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").Property} ast 
  */
 module.exports = ast => {
-	const key = require(`./${ast.key.type}`)(ast.key);
-	const value = require(`./${ast.value.type}`)(ast.value);
+	const key = packages[ast.key.type](ast.key);
+	const value = packages[ast.value.type](ast.value);
 	let header = `${ast.computed ? '[' : ''}${key}${ast.computed ? ']' : ''}`;
 	let footer = value;
 	if (ast.shorthand) {

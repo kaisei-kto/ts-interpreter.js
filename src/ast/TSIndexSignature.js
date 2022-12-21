@@ -1,14 +1,9 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TSIndexSignature} ast 
  */
 module.exports = ast => {
-	return ast.parameters.map(o => {
-		let index = require(`./${o.type}`)(o)
-		if (o.typeAnnotation) {
-			// console.log(require('./TSTypeAnnotation')(o.typeAnnotation))
-		}
-
-		return index;
-	});
+	return ast.parameters.map(o => packages[o.type](o));
 }

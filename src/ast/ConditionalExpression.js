@@ -1,7 +1,9 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").ConditionalExpression} ast 
  */
 module.exports = ast => {
-	return `${require(`./${ast.test.type}`)(ast.test)} ? ${require(`./${ast.consequent.type}`)(ast.consequent)} : ${require(`./${ast.alternate.type}`)(ast.alternate)}`
+	return `${packages[ast.test.type](ast.test)} ? ${packages[ast.consequent.type](ast.consequent)} : ${packages[ast.alternate.type](ast.alternate)}`
 }

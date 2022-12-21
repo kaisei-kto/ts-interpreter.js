@@ -1,7 +1,9 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TaggedTemplateExpression} ast 
  */
 module.exports = ast => {
-	return `${require(`./${ast.tag.type}`)(ast.tag)}${require(`./${ast.quasi.type}`)(ast.quasi)}`
+	return `${packages[ast.tag.type](ast.tag)}${packages[ast.quasi.type](ast.quasi)}`
 }

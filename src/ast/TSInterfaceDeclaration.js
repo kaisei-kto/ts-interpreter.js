@@ -1,11 +1,13 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TSInterfaceDeclaration} ast 
  */
 module.exports = ast => {
-	let identifier = require(`./${ast.id.type}`)(ast.id);
-	const body = require(`./${ast.body.type}`)(ast.body);
-	const _extends = (ast.extends ? ast.extends.map(o => require(`./${o.type}`)(o)) : [])[0];
+	let identifier = packages[ast.id.type](ast.id);
+	const body = packages[ast.body.type](ast.body);
+	const _extends = (ast.extends ? ast.extends.map(o => packages[o.type](o)) : [])[0];
 
 	if (_extends) {
 		body.unshift(['extends', _extends]);

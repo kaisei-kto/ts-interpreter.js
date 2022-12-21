@@ -1,12 +1,14 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").MemberExpression} ast 
  */
 module.exports = ast => {
-	let property = require(`./${ast.property.type}`)(ast.property);
+	let property = packages[ast.property.type](ast.property);
 
 	if (ast.computed) property = `[${property}]`
 	else property = `${ast.optional ? '?' : ''}.${property}`
 
-	return `${require(`./${ast.object.type}`)(ast.object)}${property}`
+	return `${packages[ast.object.type](ast.object)}${property}`
 }

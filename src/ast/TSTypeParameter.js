@@ -1,7 +1,9 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TSTypeParameter} ast 
  */
 module.exports = ast => {
-	return require(`./${ast.name.type}`)(ast.name)
+	return packages[ast.name.type](ast.name)
 }

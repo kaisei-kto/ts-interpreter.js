@@ -1,3 +1,5 @@
+const { packages } = require('../index');
+
 /**
  * 
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").TSTypeAnnotation} ast 
@@ -14,8 +16,8 @@ module.exports = ast => {
 	if (type === 'TSVoidKeyword') return 'void';
 	if (type === 'TSNullKeyword') return 'null';
 	if (type === 'TSUndefinedKeyword') return 'undefined';
-	if (type === 'TSTypeReference') return require('./TSTypeReference')(annotation || ast);
-	if (type === 'TSLiteralType') return require(`./${_annotation.literal.type}`)(_annotation.literal)
+	if (type === 'TSTypeReference') return packages['TSTypeReference'](annotation || ast);
+	if (type === 'TSLiteralType') return packages[_annotation.literal.type](_annotation.literal)
 	if (type === 'TSArrayType') return `${module.exports(annotation.elementType)}[]`;
 	if (type === 'TSTypeOperator') return annotation.operator;
 	if (type === 'TSFunctionType') {

@@ -1,3 +1,5 @@
+const { packages } = require('../index');
+
 const { js_docs } = require("../utils");
 
 /**
@@ -7,7 +9,7 @@ const { js_docs } = require("../utils");
 module.exports = ast => {
 	if (ast.declaration) {
 		if ((['TSInterfaceDeclaration', 'TSTypeAliasDeclaration'].indexOf(ast.declaration.type) + 1)) {
-			const body = require(`./${ast.declaration.type}`)(ast.declaration);
+			const body = packages[ast.declaration.type](ast.declaration);
 
 			body.unshift([ 'exports' ]);
 
@@ -15,14 +17,14 @@ module.exports = ast => {
 		} else {
 			ast.declaration.parent = ast;
 
-			return `module.exports.${require(`./${ast.declaration.type}`)(ast.declaration)}`
+			return `module.exports.${packages[ast.declaration.type](ast.declaration)}`
 		}
 	} else if (ast.specifiers.length > 0) {
 		const specifiers = [];
 
 		for (const specifier of ast.specifiers) {
-			const key = require(`./${specifier.exported.type}`)(specifier.exported);
-			const value = require(`./${specifier.local.type}`)(specifier.local);
+			const key = packages[specifier.exported.type](specifier.exported);
+			const value = packages[specifier.local.type](specifier.local);
 
 			specifiers.push(key !== value ? `${key}: ${value}` : key);
 		}
