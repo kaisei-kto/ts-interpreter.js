@@ -7,10 +7,11 @@ function find_stack(stacks) {
 	}
 
 	for (const stack of stacks) {
-		const index = stack.indexOf(at);
+		const start = stack.indexOf(at);
+		const end = stack.indexOf(runtime);
 
-		if (index === 0) {
-			return stack.substr(at.length)
+		if (start === 0 && end > 0) {
+			return stack.substr(at.length);
 		}
 	}
 }

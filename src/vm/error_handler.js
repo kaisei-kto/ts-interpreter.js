@@ -4,16 +4,16 @@ const { log } = require('../utils');
 const { e_parser } = require('../utils/error-parser');
 
 function handle_exception(error, origin) {
-	let handled = false;
 	const event = origin !== 'uncaughtException' ? 'unhandledRejection' : 'uncaughtException';
 	const listeners = process.listeners('uncaughtException');
+
+	log.error(error);
 
 	if (error && typeof error === 'object' && 'message' in error && 'name' in error && 'stack' in error) {
 		const { stack, path, line, column, message, name } = e_parser(error);
 		const src = cache[path];
 
 		if (typeof line === 'number' && typeof src === 'string' && line !== 0) {
-			handled = true;
 			const lines = src.split('\n').slice(Math.max(0, (line - 1) - 5)).map(o => fix_code(o)[0]);
 			const prelines = {}
 			let count = Math.max(1, (line - 1) - 5)
@@ -37,13 +37,9 @@ function handle_exception(error, origin) {
 		}
 	}
 
-	if ((listeners.length - 1) > 0) {
-		return;
-	} else if (!handled) {
-		console.error(error);
+	if ((listeners.length - 1) === 0) {
+		process.exit(1);
 	}
-
-	process.exit(1);
 }
 
 process.on('uncaughtException', handle_exception);
