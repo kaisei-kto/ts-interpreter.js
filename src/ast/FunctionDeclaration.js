@@ -13,7 +13,7 @@ module.exports = (ast) => {
 	if (ast.parent) {
 		fheader = `${ast.id.name} = ${fheader}`
 	} else {
-		fheader = `${fheader} ${ast.id.name}`
+		fheader = `${fheader} ${ast.id ? ast.id.name : ''}`
 	}
 
 	return `${fheader}(${fparams}) ${BlockStatement(ast.body)}`;

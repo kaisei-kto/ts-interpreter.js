@@ -15,9 +15,20 @@ module.exports = ast => {
 
 			return js_docs(body);
 		} else {
-			ast.declaration.parent = ast;
+			if (['FunctionDeclaration', 'ArrowFunctionExpression'].indexOf(ast.declaration.type) !== -1) {
+				const f = packages[ast.declaration.type](ast.declaration);
+				const n = f.substring(f.indexOf('function') + 9, f.indexOf('('));
+				return `${f};module.exports.${n} = ${n};`
+			} else {
+				ast.declaration.parent = ast.declaration.type === 'VariableDeclaration' ? undefined : ast;
+				if (!ast.declaration.parent) {
+					const f = packages[ast.declaration.type](ast.declaration);
+					const n = f.substring(ast.declaration.kind.length + 1, f.indexOf(' ='));
+					return `${f};module.exports.${n} = ${n};`
+				}
 
-			return `module.exports.${packages[ast.declaration.type](ast.declaration)}`
+				return `module.exports.${packages[ast.declaration.type](ast.declaration)}`;
+			}
 		}
 	} else if (ast.specifiers.length > 0) {
 		const specifiers = [];

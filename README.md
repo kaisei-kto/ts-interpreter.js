@@ -25,12 +25,12 @@ index.js
 require('ts-interpreter.js'); // register .ts extension and runtime compiler
 const package = require('./main'); // main.ts gets compiled almost instant during runtime
 
-console.log(package.whoami())
+console.log(package.whoami());
 ```
 
 main.ts
 ```ts
-export function whoami() {
+export function whoami(): string|any {
 	return 'ts-interpreter.js';
 }
 ```

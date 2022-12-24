@@ -1,7 +1,12 @@
+require('./vm');
 const { packages, cache } = require('./shared');
 const { readdirSync } = require('node:fs');
 const { join } = require('node:path');
 const ast_path = join(__dirname, 'ast');
+
+function create_runtime_string(str) {
+	return `(function(){\n${str}\n;return module.exports})();`
+}
 
 /**
  * 
@@ -27,7 +32,7 @@ function interpret(ast) {
 
 	const joined = code.join('\n');
 
-	return joined;
+	return create_runtime_string(joined);
 }
 
 module.exports = {

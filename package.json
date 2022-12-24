@@ -1,6 +1,6 @@
 {
   "name": "ts-interpreter.js",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,10 @@
     "typescript",
     "javascript",
     "ts",
-    "js"
+    "js",
+    "evaluator",
+    "evaluate",
+    "eval"
   ],
   "repository": {
     "type": "git",
@@ -28,12 +31,14 @@
   "author": "kaisei-kto",
   "license": "ISC",
   "dependencies": {
-    "@typescript-eslint/parser": "^5.46.1",
+    "@mysticatea/eslint-plugin": "^13.0.0",
+    "@typescript-eslint/parser": "^5.47.0",
     "clarify-plus": "^2.0.0",
-    "uglify-js": "^3.17.4"
+    "eslint": "^6.8.0",
+    "eslint-plugin-detect-no-assignment": "^0.0.3",
+    "prettier": "^2.8.1"
   },
   "devDependencies": {
-    "@childrentime/js-interpreter": "^1.0.9",
     "@types/node": "^18.11.17",
     "express": "^4.18.2",
     "node-7z": "^3.0.0",

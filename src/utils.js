@@ -1,3 +1,5 @@
+const { inspect } = require("util");
+
 const log = {};
 const title = 'ts-interpreter';
 
@@ -36,13 +38,15 @@ const colors = {
 
 function build_console(label) {
 	return function() {
-		const args = [ ...arguments ]
+		arguments = Array.from(arguments);
 		const builder = [ `[${colors[label].join('')}${title}${colors.reset}]` ]
 	
-		if (args[0])
-			builder.push(args.shift())
-	
-		console.log(builder.join(' '), ...args)
+		if (arguments[0]) {
+			const arg = arguments.shift()
+			builder.push(typeof arg !== 'object' ? arg : inspect(arg, false, undefined, true))
+		}
+
+		console.log(builder.join(' '), ...arguments)
 	}
 }
 
