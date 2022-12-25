@@ -12,5 +12,9 @@ module.exports = ast => {
 		type = packages[ast.typeAnnotation.type](ast.typeAnnotation);
 	}
 
+	if (ast.parent) {
+		return `${name}: ${type}`
+	}
+
 	return [ 'property', type, name ]
 }

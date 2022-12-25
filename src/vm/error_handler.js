@@ -16,7 +16,7 @@ function handle_exception(error, origin) {
 		if (typeof line === 'number' && typeof src === 'string' && line !== 0) {
 			const lines = src.split('\n').slice(Math.max(0, (line - 1) - 5)).map(o => fix_code(o)[0]);
 			const prelines = {}
-			let count = Math.max(1, (line - 1) - 5)
+			let count = Math.max(0, (line - 1) - 5)
 			let size = 0;
 			for (const line of lines) {
 				if (size > 10) break;

@@ -1,4 +1,5 @@
 const { packages } = require('../index');
+const { js_docs } = require('../utils');
 
 /**
  * 
@@ -15,7 +16,8 @@ module.exports = ast => {
 
 	body.unshift([ 'typedef', undefined, identifier ]);
 	body.unshift([ 'type', 'object' ]);
+	if (ast.typeParameters) body.unshift([ 'template', packages[ast.typeParameters.type]((ast.typeParameters.parent = ast) && ast.typeParameters) ]);
 	body.unshift([ 'interface' ]);
 
-	return body;
+	return !ast.parent ? js_docs(body) : body;
 }

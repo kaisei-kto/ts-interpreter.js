@@ -1,4 +1,5 @@
 const { packages } = require('../index');
+const { js_docs } = require('../utils');
 
 /**
  * 
@@ -8,6 +9,15 @@ module.exports = ast => {
 	const params = ast.params.map(o => packages[o.type]((o.parent = ast) && o)).join(', ');
 	let body = packages[ast.body.type]((ast.body.parent = ast) && ast.body);
 	body = `${ast.expression ? '(' : ''}${body}${ast.expression ? ')' : ''}`;
+	
+	let docs = [];
+	for (const parameter of ast.params) {
+		docs.push([ 'param', (parameter.typeAnnotation ? packages[parameter.typeAnnotation.type](parameter.typeAnnotation) : 'any') + (parameter.optional ? '?' : ''), parameter.name ]);
+	}
 
-	return `(${ast.async ? 'async ' : ''}(${params}) => ${body})`;
+	if (ast.returnType) {
+		docs.push([ 'returns', packages[ast.returnType.typeAnnotation.type](ast.returnType.typeAnnotation) ]);
+	}
+
+	return `${docs.length > 0 ? js_docs(docs) + '\n' : ''}(${ast.async ? 'async ' : ''}(${params}) => ${body})`;
 }

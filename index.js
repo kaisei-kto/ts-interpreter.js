@@ -1,12 +1,11 @@
 require('clarify-plus');
+const parser = require('@typescript-eslint/parser');
 const { cache } = require('./src/shared');
 const { fix_code } = require('./src/vm/utils');
 const { log } = require('./src/utils');
 const { readFileSync, existsSync, mkdirSync, writeFileSync } = require('fs');
 const src = require('./src');
-const parser = require('@typescript-eslint/parser');
-const { join, dirname } = require('path');
-const linter = require('./src/lint');
+const { join, dirname, basename } = require('path');
 const prettier = require('prettier');
 const { EOL } = require('os');
 const opts = {
@@ -23,21 +22,44 @@ function check_dir(fpath) {
 	let __dirname = dirname(fpath);
 	if (existsSync(__dirname)) return true;
 
-	console.log(fpath);
+	// console.log(fpath);
 	check_dir(__dirname);
 	mkdirSync(__dirname);
 }
 
+function walk(ast, cb) {
+	console.log(ast);
+}
+
+/**
+ * 
+ * @returns {{
+ * ast: import('@typescript-eslint/types').TSESTree.Program,
+ * error: any
+ * }}
+ */
 function parse(src) {
 	const object = {
-		ast: '',
+		ast: undefined,
 		error: undefined
 	}
 
 	try {
 		object.ast = parser.parse(src, {
-			range: true
-		})
+			range: true,
+			comment: true,
+			loc: true,
+			ecmaFeatures: {
+				globalReturn: false,
+				jsx: false
+			},
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			errorOnTypeScriptSyntacticAndSemanticIssues: true,
+			emitDecoratorMetadata: true,
+			tokens: true
+		});
+		
 	} catch (e) {
 		object.ast = undefined
 		object.error = e
@@ -56,7 +78,6 @@ function init (file_path) {
 		log.debug(`Reading and compiling \x1b[1m${file_path}\x1b[0m to \x1b[1mJavaScript\x1b[0m`);
 	}
 	const content = readFileSync(file_path, 'utf8');
-	const errors = linter(content);
 
 	const { ast, error } = parse(content)
 
@@ -70,7 +91,8 @@ function init (file_path) {
 		process.exit(1);
 	}
 
-	const compiled_code = src.interpret(ast.body);
+
+	const compiled_code = src.interpret(ast);
 
 	const code = prettier.format(compiled_code, {
 		useTabs: true,
@@ -79,35 +101,31 @@ function init (file_path) {
 		singleQuote: true,
 		semi: true,
 		filepath: file_path + '.runtime',
-		parser: 'babel-flow',
-		endOfLine: {
-			'\r\n': 'crlf',
-			'\r': 'cr',
-			'\n': 'lf'
-		}[EOL],
-		printWidth: 300,
-		proseWrap: 'preserve',
-		quoteProps: 'preserve'
+		parser: 'babel-ts',
+		endOfLine: 'crlf'
 	})
-
-	// if (error2) {
-	// 	error2.name = file_path + '.runtime'
-	// 	console.error(error2);
-	// 	// process.emit('uncaughtException', error2);
-	// 	process.exit(1);
-	// }
-
+	
 	if (opts.debug) {
 		const fpath = join('ts.interpreter.js', ...(file_path + '.js').split(process.cwd()));
 		check_dir(fpath);
 		writeFileSync(fpath, code);
 	}
 
-	// for handling errors
-	cache[file_path] = errors;
 	cache[file_path +  '.runtime'] = code;
 
 	return `${code}`;
 }
 
 require('./src/vm/index')(init);
+
+module.exports = function() {
+	const caller = require('caller')();
+	if (typeof caller === 'string') {
+		const fname = basename(caller);
+		const dname = basename(dirname(caller));
+
+		if (fname === 'cli.js' && dname === 'ts-interpreter.js') {
+			return init;
+		}
+	}
+}

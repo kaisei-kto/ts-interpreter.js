@@ -1,11 +1,16 @@
 # ts-interpreter.js [ TypeScript Runtime Compiler ]
-
-#### This package will allow you to use `require` on any `.ts` files from any `.js` files using our runtime compiler!
+This package will allow you to use `require` on any `.ts` files from any `.js` files using our runtime compiler!
 
 #
 # Installation
+API
 ```
 npm i ts-interpreter.js
+```
+
+CLI - scroll down for CLI usages
+```
+npm i ts-interpreter.js -g
 ```
 
 # Coverage
@@ -19,7 +24,7 @@ npm i ts-interpreter.js
 - [x] Operators
 - [x] Expressions
 
-# Usage
+# API Usage
 index.js
 ```js
 require('ts-interpreter.js'); // register .ts extension and runtime compiler
@@ -33,6 +38,13 @@ main.ts
 export function whoami(): string|any {
 	return 'ts-interpreter.js';
 }
+```
+
+# CLI Usage
+```
+file   : tsi-cli <input.ts> <out.js>
+auto   : tsi-cli <input.ts> - # replaces - to <input.ts>.js
+console: tsi-cli <input.ts> --
 ```
 
 # Tests & Comparisons

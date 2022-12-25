@@ -1,6 +1,6 @@
 'use strict';
 
-import './src/constants';
+// import './src/constants';
 // export * from './src/constants';
 // export * from './src/classes';
 // import './src/loop';
@@ -11,7 +11,13 @@ import './src/constants';
 // import './src/functions';
 // import './src/functions';
 
-export function whoami(): string|any {
+// hello
+
+export interface abcdef {}
+interface abcde {}
+export type abcd = () => []
+type abc = () => [];
+export function whoami(a?: string): string {
 	return 'ts-interpreter.js';
 }
 

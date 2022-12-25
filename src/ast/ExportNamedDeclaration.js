@@ -9,7 +9,7 @@ const { js_docs } = require("../utils");
 module.exports = ast => {
 	if (ast.declaration) {
 		if ((['TSInterfaceDeclaration', 'TSTypeAliasDeclaration'].indexOf(ast.declaration.type) + 1)) {
-			const body = packages[ast.declaration.type](ast.declaration);
+			const body = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
 
 			body.unshift([ 'exports' ]);
 

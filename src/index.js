@@ -10,12 +10,12 @@ function create_runtime_string(str) {
 
 /**
  * 
- * @param {import('@typescript-eslint/types/dist/generated/ast-spec').ProgramStatement[]} ast 
+ * @param {import('@typescript-eslint/types/dist/generated/ast-spec').Program} ast 
  */
 function interpret(ast) {
 	const code = [];
 
-	for (const object of ast) {
+	for (const object of ast.body) {
 		const { type } = object;
 		let fcall = packages[type];
 
@@ -25,6 +25,7 @@ function interpret(ast) {
 			if (typeof line === 'string') {
 				// log(type, 'error');
 				// console.log(line);
+				// console.log(type);
 				code.push(line);
 			}
 		} else throw new ReferenceError(`${type} does not exist in the ast path`);

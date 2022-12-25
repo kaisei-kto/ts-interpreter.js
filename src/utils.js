@@ -57,7 +57,7 @@ log.info = build_console('info')
 function js_docs(props) {
 	const docs = [ '/**' ]
 	for (const [key, value, name] of props) {
-		docs.push(` * @${key}${value !== undefined ? ` {${value}}` : ''}${name ? ' ' + name : ''}`)
+		docs.push(` * @${key}${key === 'template' ? ' ' + (value ?? '') : value !== undefined ? ` {${value}}` : ''}${name ? ' ' + name : ''}`)
 	}
 
 	docs.push(' */')
