@@ -24,5 +24,5 @@ module.exports = ast => {
 		return builder.join(': ');
 	});
 
-	return `const ${packages[ast.id.type](ast.id)} = { ${members.join(', ')} }`
+	return `const ${packages[ast.id.type]((ast.id.parent = ast) && ast.id)} = { ${members.join(', ')} }`
 }

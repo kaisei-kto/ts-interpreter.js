@@ -5,5 +5,9 @@ const { packages } = require('../index');
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").MethodDefinition} ast 
  */
 module.exports = ast => {
-	return `${['method', 'constructor'].indexOf(ast.kind) === -1 ? ast.kind + ' ' : ''}${packages[ast.value.type](ast.value).replace('function (', `${ast.key.name}(`)}`;
+	const value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
+	let header = Array.isArray(value) ? value.shift() + '\n' : '';
+	let body = Array.isArray(value) ? value.shift() : '';
+
+	return `${header}${['method', 'constructor'].indexOf(ast.kind) === -1 ? ast.kind + ' ' : ''}${body.replace('function (', `${ast.key.name}(`)}`;
 }

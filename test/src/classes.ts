@@ -2,13 +2,15 @@ class a {
 
 }
 
+const s = '';
+
 class b implements a {
 	private _b;
 	constructor(b) {
 		this._b = b
 	}
 
-	get str() {
+	get str(): typeof s {
 		return ['getter str', this._b];
 	}
 }

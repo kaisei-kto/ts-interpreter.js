@@ -16,13 +16,30 @@ module.exports = ast => {
 			return js_docs(body);
 		} else {
 			if (['FunctionDeclaration', 'ArrowFunctionExpression'].indexOf(ast.declaration.type) !== -1) {
-				const f = packages[ast.declaration.type](ast.declaration);
-				const n = f.substring(f.indexOf('function') + 9, f.indexOf('('));
-				return `${f};module.exports.${n} = ${n};`
+				let [ h, f ] = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
+				let n = f.substring(f.indexOf('function'), f.indexOf('('));
+				if (n === 'function') {
+					n = f.substring(0, f.indexOf(' = function'));
+					const func = f.split('\n');
+
+					func[0] = `function ${n}${func[0].split(' = function')[1]}`;
+
+					f = func.join('\n');
+				}
+				return `${h !== '' ? h + '\n' : ''}${f};module.exports.${n} = ${n};`
 			} else {
 				ast.declaration.parent = ast.declaration.type === 'VariableDeclaration' ? undefined : ast;
 				if (!ast.declaration.parent) {
-					const f = packages[ast.declaration.type](ast.declaration);
+					const value = packages[ast.declaration.type](ast.declaration);
+					let h = '';
+					let f;
+
+					if (Array.isArray(value)) {
+						f = value.pop();
+					} else {
+						f = value;
+					}
+
 					const n = f.substring(ast.declaration.kind.length + 1, f.indexOf(' ='));
 					return `${f};module.exports.${n} = ${n};`
 				}
@@ -34,8 +51,8 @@ module.exports = ast => {
 		const specifiers = [];
 
 		for (const specifier of ast.specifiers) {
-			const key = packages[specifier.exported.type](specifier.exported);
-			const value = packages[specifier.local.type](specifier.local);
+			const key = packages[specifier.exported.type]((specifier.exported.parent = specifier) && specifier.exported);
+			const value = packages[specifier.local.type]((specifier.local.parent = specifier) && specifier.local);
 
 			specifiers.push(key !== value ? `${key}: ${value}` : key);
 		}

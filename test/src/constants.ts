@@ -5,7 +5,7 @@ export function log(...args) {
 }
 
 export const c = {
-	a: async function* yoyo() {
+	a: async function* yoyo(): any {
 		
 	},
 	cv

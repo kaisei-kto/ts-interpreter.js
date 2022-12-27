@@ -3,7 +3,7 @@ const parser = require('@typescript-eslint/parser');
 const { cache } = require('./src/shared');
 const { fix_code } = require('./src/vm/utils');
 const { log } = require('./src/utils');
-const { readFileSync, existsSync, mkdirSync, writeFileSync } = require('fs');
+const { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync } = require('fs');
 const src = require('./src');
 const { join, dirname, basename } = require('path');
 const prettier = require('prettier');
@@ -11,7 +11,8 @@ const { EOL } = require('os');
 const opts = {
 	minify: true,
 	pretty: true,
-	debug: false
+	debug: false,
+	sample: false
 }
 
 if (opts.debug && !existsSync('ts.interpreter.js')) {
@@ -127,5 +128,15 @@ module.exports = function() {
 		if (fname === 'cli.js' && dname === 'ts-interpreter.js') {
 			return init;
 		}
+	}
+}
+
+if (opts.sample) {
+	for (const f of readdirSync('examples').filter(f => f.endsWith('.ts'))) {
+		const fpath = join('examples', f);
+
+		const code = init(fpath);
+
+		writeFileSync(fpath + '.js', code);
 	}
 }

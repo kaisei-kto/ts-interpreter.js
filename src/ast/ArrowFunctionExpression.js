@@ -19,5 +19,12 @@ module.exports = ast => {
 		docs.push([ 'returns', packages[ast.returnType.typeAnnotation.type](ast.returnType.typeAnnotation) ]);
 	}
 
-	return `${docs.length > 0 ? js_docs(docs) + '\n' : ''}(${ast.async ? 'async ' : ''}(${params}) => ${body})`;
+	docs = docs.length > 0 ? js_docs(docs) : '';
+	const array = [ docs, `(${ast.async ? 'async ' : ''}(${params}) => ${body})` ];
+
+	if (ast.parent) {
+		return array;
+	}
+
+	return array[0] !== '' ? array.join('\n') : array.pop();
 }

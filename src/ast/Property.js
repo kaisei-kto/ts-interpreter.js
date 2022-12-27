@@ -5,8 +5,8 @@ const { packages } = require('../index');
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").Property} ast 
  */
 module.exports = ast => {
-	const key = packages[ast.key.type](ast.key);
-	const value = packages[ast.value.type](ast.value);
+	const key = packages[ast.key.type]((ast.key.parent = ast) && ast.key);
+	const value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
 	let header = `${ast.computed ? '[' : ''}${key}${ast.computed ? ']' : ''}`;
 	let footer = value;
 	if (ast.shorthand) {
@@ -22,7 +22,8 @@ module.exports = ast => {
 	} else {
 		header += ': ';
 		if (ast.value.type === 'FunctionExpression') {
-			footer = `${value}`;
+			header = value[0] + '\n' + header;
+			footer = `${value[1]}`;
 		}
 	}
 

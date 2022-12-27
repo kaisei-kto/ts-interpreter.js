@@ -10,7 +10,7 @@ module.exports = ast => {
 	if (ast.async) builder.push('async');
 	builder.push('function');
 	if (ast.generator) builder.push(builder.pop() + '*');
-	if (ast.id) builder.push(packages[ast.id.type](ast.id));
+	if (ast.id) builder.push(packages[ast.id.type]((ast.id.parent = ast) && ast.id));
 
 	let docs = [];
 	for (const parameter of ast.params) {
@@ -21,8 +21,12 @@ module.exports = ast => {
 		docs.push([ 'returns', packages[ast.returnType.typeAnnotation.type](ast.returnType.typeAnnotation) ]);
 	}
 
-	if (docs.length > 0)
-		builder.unshift(`${js_docs(docs)}\n`);
+	docs = docs.length > 0 ? js_docs(docs) : '';
+	const array = [ docs, `${builder.join(' ')} (${ast.params.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')}) ${packages[ast.body.type]((ast.body.parent = ast) && ast.body)}` ];
 
-	return `${builder.join(' ')} (${ast.params.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')}) ${packages[ast.body.type]((ast.body.parent = ast) && ast.body)}`;
+	if (ast.parent) {
+		return array;
+	}
+
+	return array[0] !== '' ? array.join('\n') : array.pop();
 }

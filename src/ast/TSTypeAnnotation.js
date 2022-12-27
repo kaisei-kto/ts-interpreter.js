@@ -17,23 +17,19 @@ module.exports = ast => {
 	if (type === 'TSVoidKeyword') return 'void';
 	if (type === 'TSNullKeyword') return 'null';
 	if (type === 'TSUndefinedKeyword') return 'undefined';
-	if (type === 'TSTypeReference') return packages['TSTypeReference'](annotation || ast);
-	if (type === 'TSLiteralType') return packages[_annotation.literal.type](_annotation.literal)
-	if (type === 'TSTypeOperator') return annotation.operator;
+	if (type === 'TSNeverKeyword') return 'never';
+	if (type === 'TSTypeReference') return packages['TSTypeReference']((_annotation.parent = ast) && _annotation);
+	if (type === 'TSLiteralType') return packages[_annotation.literal.type]((_annotation.literal.parent = _annotation) && _annotation.literal)
 	if ([ 'TSTypeLiteral', 'TSTupleType', 'TSArrayType' ].indexOf(type) !== -1) return packages[type]((_annotation.parent = ast) && _annotation);
-	if (type === 'TSFunctionType') {
-		return `() => ${module.exports(annotation.returnType)}`;
-	}
 
 	// console.log(ast);
 	// console.log('found non-supported annotation', annotation);
 
-	return packages[type](_annotation)
+	return packages[type]((_annotation.parent = ast) && _annotation)
 }
 
 for (const key of [
-	'TSTypeOperator',
 	'TSAnyKeyword', 'TSStringKeyword', 'TSNumberKeyword',
 	'TSBooleanKeyword', 'TSVoidKeyword', 'TSNullKeyword',
-	'TSUndefinedKeyword'
+	'TSUndefinedKeyword', 'TSNeverKeyword'
 ]) packages[key] = module.exports;

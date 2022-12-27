@@ -1,3 +1,7 @@
 {
-    "ext": "js,ts,json"
+    "ext": "js,ts,json",
+    "ignore": [
+        "examples",
+        "ts.interpreter.js"
+    ]
 }

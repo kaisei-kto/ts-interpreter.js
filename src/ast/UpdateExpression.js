@@ -9,5 +9,5 @@ module.exports = ast => {
 	// 	console.log('update prefix!')
 	// }
 
-	return `${packages[ast.argument.type](ast.argument)}${ast.operator}`;
+	return `${packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument)}${ast.operator}`;
 }
