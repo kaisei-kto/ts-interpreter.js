@@ -40,7 +40,7 @@ module.exports = ast => {
 						f = value;
 					}
 
-					const n = f.substring(ast.declaration.kind.length + 1, f.indexOf(' ='));
+					const n = f.substring((f.indexOf(ast.declaration.kind + ' ')) + ast.declaration.kind.length + 1, f.indexOf(' ='));
 					return `${f};module.exports.${n} = ${n};`
 				}
 

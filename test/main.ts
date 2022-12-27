@@ -27,5 +27,4 @@ export function whoami(a?: string): string {
 	return 'ts-interpreter.js';
 }
 
-console.log`yay`;
 console.log('Loaded a ts file;', __filename);

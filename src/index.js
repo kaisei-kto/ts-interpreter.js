@@ -25,7 +25,6 @@ function interpret(ast) {
 			if (typeof line === 'string') {
 				// log(type, 'error');
 				// console.log(line);
-				// console.log(type);
 				code.push(line);
 			}
 		} else throw new ReferenceError(`${type} does not exist in the ast path`);
