@@ -1,6 +1,6 @@
 {
   "name": "ts-interpreter.js",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -9,6 +9,7 @@
   "scripts": {
     "test": "tsi-cli --help"
   },
+  "type": "commonjs",
   "keywords": [
     "ts-compiler",
     "ts-interpreter",
@@ -34,7 +35,7 @@
   "author": "kaisei-kto",
   "license": "ISC",
   "dependencies": {
-    "@typescript-eslint/parser": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.1",
     "caller": "^1.1.0",
     "clarify-plus": "^2.0.0",
     "prettier": "^2.8.1"

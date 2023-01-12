@@ -10,7 +10,7 @@ module.exports = ast => {
 	if (ast.handler) {
 		builder.push('catch');
 		if (ast.handler.param) {
-			builder.push(`(${packages[ast.handler.param.type](ast.handler.param)})`);
+			builder.push(`(${packages[ast.handler.param.type]((ast.handler.param.parent = ast.handler) && ast.handler.param)})`);
 		}
 
 		builder.push(packages[ast.handler.body.type](ast.handler.body));

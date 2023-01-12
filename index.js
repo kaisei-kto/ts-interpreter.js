@@ -1,19 +1,27 @@
 require('clarify-plus');
-const parser = require('@typescript-eslint/parser');
+// const { parse } = require('@typescript-eslint/parser');
+const { parse } = require('@typescript-eslint/typescript-estree');
+// console.log(require('@typescript-eslint/typescript-estree').parse('/* yo */\nconsole.log', {
+// 	preserveNodeMaps: true,
+// 	comment: true,
+// 	tokens: true,
+// 	range: true
+// }))
 const { cache } = require('./src/shared');
 const { fix_code } = require('./src/vm/utils');
 const { log } = require('./src/utils');
-const { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync } = require('fs');
+const { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, lstatSync } = require('fs');
 const src = require('./src');
 const { join, dirname, basename } = require('path');
 const prettier = require('prettier');
-const { EOL } = require('os');
 const opts = {
 	minify: true,
 	pretty: true,
-	debug: false,
+	debug: true,
 	sample: false
 }
+
+global.__tsi_esm = false;
 
 if (opts.debug && !existsSync('ts.interpreter.js')) {
 	mkdirSync('ts.interpreter.js');
@@ -39,14 +47,14 @@ function walk(ast, cb) {
  * error: any
  * }}
  */
-function parse(src) {
+function parse_src(src) {
 	const object = {
 		ast: undefined,
 		error: undefined
 	}
 
 	try {
-		object.ast = parser.parse(src, {
+		object.ast = parse(src, {
 			range: true,
 			comment: true,
 			loc: true,
@@ -56,7 +64,7 @@ function parse(src) {
 			},
 			ecmaVersion: 'latest',
 			sourceType: 'module',
-			errorOnTypeScriptSyntacticAndSemanticIssues: true,
+			// errorOnTypeScriptSyntacticAndSemanticIssues: true,
 			emitDecoratorMetadata: true,
 			tokens: true
 		});
@@ -80,7 +88,7 @@ function init (file_path) {
 	}
 	const content = readFileSync(file_path, 'utf8');
 
-	const { ast, error } = parse(content)
+	const { ast, error } = parse_src(content)
 
 	if (error) {
 		if (typeof error === 'object' && typeof error.message === 'string' && typeof error.lineNumber === 'number' && typeof error.column === 'number') {
