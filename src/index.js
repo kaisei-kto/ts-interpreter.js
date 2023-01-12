@@ -1,5 +1,5 @@
 require('./vm');
-const { packages, cache } = require('./shared');
+const { packages } = require('./shared');
 const { readdirSync } = require('node:fs');
 const { join } = require('node:path');
 const ast_path = join(__dirname, 'ast');

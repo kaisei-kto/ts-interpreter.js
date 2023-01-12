@@ -6,12 +6,18 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const key = packages[ast.key.type]((ast.key.parent = ast) && ast.key);
-	const value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
+	let value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
+
+	if (Array.isArray(value)) {
+		value = value.pop()
+	}
+
 	let header = `${ast.computed ? '[' : ''}${key}${ast.computed ? ']' : ''}`;
 	let footer = value;
 	if (ast.shorthand) {
 		return key
 	}
+
 
 	if (ast.kind !== 'init') {
 		footer = footer.split(' ')

@@ -3,14 +3,20 @@ const { createContext, Script } = require('node:vm');
 
 module.exports = (init) => {
 	let handle_exception;
-	require.extensions['.ts'] = function(module) {
+	require.extensions['.ts'] = function (module) {
 		const code = init(module.id);
 
 		var sandbox = {};
 
 		for (let k of Object.getOwnPropertyNames(global)) sandbox[k] = global[k];
 		const filename = `${module.id}.runtime`;
-		sandbox.require = module.require.bind(module);
+		sandbox.require = module.require.bind(module)
+		Object.defineProperty(sandbox.require, 'cache', {
+			get() {
+				return require.cache;
+			}
+		});
+
 		sandbox.exports = module.exports;
 		sandbox.__filename = module.id;
 		sandbox.__dirname = dirname(module.filename);
@@ -54,7 +60,7 @@ module.exports = (init) => {
 						object = new Error();
 					}
 				}
-				object.message = stack[0].indexOf(': ')  !== -1 ? stack[0].substr(stack[0].indexOf(': ') + 2) : undefined;
+				object.message = stack[0].indexOf(': ') !== -1 ? stack[0].substr(stack[0].indexOf(': ') + 2) : undefined;
 				object.stack = stack.join('\n')
 			}
 

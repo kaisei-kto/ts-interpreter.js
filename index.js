@@ -115,7 +115,7 @@ function init(file_path) {
 	})
 
 	if (opts.debug) {
-		const fpath = join('ts.interpreter.js', ...(file_path + '.js').split(process.cwd()));
+		const fpath = join('ts.interpreter.js', (file_path + '.js').substr(require.main.path.length));
 		check_dir(fpath);
 		writeFileSync(fpath, code);
 	}
