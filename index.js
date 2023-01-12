@@ -17,7 +17,7 @@ const prettier = require('prettier');
 const opts = {
 	minify: true,
 	pretty: true,
-	debug: true,
+	debug: false,
 	sample: false
 }
 
@@ -68,7 +68,7 @@ function parse_src(src) {
 			emitDecoratorMetadata: true,
 			tokens: true
 		});
-		
+
 	} catch (e) {
 		object.ast = undefined
 		object.error = e
@@ -82,7 +82,7 @@ function parse_src(src) {
  * @param {string} file_path 
  * @returns {string}
  */
-function init (file_path) {
+function init(file_path) {
 	if (opts.debug) {
 		log.debug(`Reading and compiling \x1b[1m${file_path}\x1b[0m to \x1b[1mJavaScript\x1b[0m`);
 	}
@@ -113,21 +113,21 @@ function init (file_path) {
 		parser: 'babel-ts',
 		endOfLine: 'crlf'
 	})
-	
+
 	if (opts.debug) {
 		const fpath = join('ts.interpreter.js', ...(file_path + '.js').split(process.cwd()));
 		check_dir(fpath);
 		writeFileSync(fpath, code);
 	}
 
-	cache[file_path +  '.runtime'] = code;
+	cache[file_path + '.runtime'] = code;
 
 	return `${code}`;
 }
 
 require('./src/vm/index')(init);
 
-module.exports = function() {
+module.exports = function () {
 	const caller = require('caller')();
 	if (typeof caller === 'string') {
 		const fname = basename(caller);
