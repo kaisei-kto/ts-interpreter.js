@@ -1,3 +1,4 @@
+const caller = require("caller");
 const { inspect } = require("util");
 
 const log = {};
@@ -30,17 +31,17 @@ const title = 'ts-interpreter';
 // colors.BgCyan = "\x1b[46m"
 // colors.BgWhite = "\x1b[47m"
 const colors = {
-	info: [ '\x1b[40m\x1b[32m' ],
-	debug: [ '\x1b[40m\x1b[34m' ],
-	error: [ '\x1b[40m\x1b[31m' ],
+	info: ['\x1b[40m\x1b[32m'],
+	debug: ['\x1b[40m\x1b[34m'],
+	error: ['\x1b[40m\x1b[31m'],
 	reset: '\x1b[0m'
 }
 
 function build_console(label) {
-	return function() {
+	return function () {
 		arguments = Array.from(arguments);
-		const builder = [ `[${colors[label].join('')}${title}${colors.reset}]` ]
-	
+		const builder = [`[${colors[label].join('')}${title}${colors.reset}]`]
+
 		if (arguments[0]) {
 			const arg = arguments.shift()
 			builder.push(typeof arg !== 'object' ? arg : inspect(arg, false, undefined, true))
@@ -55,7 +56,9 @@ log.error = build_console('error')
 log.info = build_console('info')
 
 function js_docs(props) {
-	const docs = [ '/**' ]
+	const docs = ['/**']
+	// console.log(caller());
+	// console.log(props);
 	for (const [key, value, name] of props) {
 		docs.push(` * @${key}${key === 'template' ? ' ' + (value ?? '') : value !== undefined ? ` {${value}}` : ''}${name ? ' ' + name : ''}`)
 	}
