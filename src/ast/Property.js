@@ -6,10 +6,12 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const key = packages[ast.key.type]((ast.key.parent = ast) && ast.key);
+	let comment = '';
 	let value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
 
 	if (Array.isArray(value)) {
-		value = value.pop()
+		comment = value.shift()
+		value = value.shift()
 	}
 
 	let header = `${ast.computed ? '[' : ''}${key}${ast.computed ? ']' : ''}`;
@@ -28,8 +30,8 @@ module.exports = ast => {
 	} else {
 		header += ': ';
 		if (ast.value.type === 'FunctionExpression') {
-			header = value[0] + '\n' + header;
-			footer = `${value[1]}`;
+			header = comment + '\n' + header;
+			footer = `${value}`;
 		}
 	}
 
