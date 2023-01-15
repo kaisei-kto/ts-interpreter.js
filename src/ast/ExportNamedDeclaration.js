@@ -11,12 +11,12 @@ module.exports = ast => {
 		if ((['TSInterfaceDeclaration', 'TSTypeAliasDeclaration'].indexOf(ast.declaration.type) + 1)) {
 			const body = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
 
-			body.unshift([ 'exports' ]);
+			body.unshift(['exports']);
 
 			return js_docs(body);
 		} else {
 			if (['FunctionDeclaration', 'ArrowFunctionExpression'].indexOf(ast.declaration.type) !== -1) {
-				let [ h, f ] = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
+				let [h, f] = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
 				let n = f.substring(f.indexOf('function'), f.indexOf('('));
 				if (n === 'function') {
 					n = f.substring(0, f.indexOf(' = function'));
@@ -44,7 +44,12 @@ module.exports = ast => {
 					return `${f};module.exports.${n} = ${n};`
 				}
 
-				return `module.exports.${packages[ast.declaration.type](ast.declaration)}`;
+				const value = packages[ast.declaration.type](ast.declaration);
+				let n;
+				if (value?.indexOf('const ') === 0 || value?.indexOf('var ') === 0 || value?.indexOf('let ') === 0) {
+					n = value.split(' ')[1]
+				}
+				return n ? `${value}\nmodule.exports.${n} = ${n}` : `module.exports.${value}`;
 			}
 		}
 	} else if (ast.specifiers.length > 0) {

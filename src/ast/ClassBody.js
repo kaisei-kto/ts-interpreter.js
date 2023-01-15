@@ -8,7 +8,7 @@ module.exports = ast => {
 	const body = `{ ${ast.body.map(o => {
 		let builder = []
 		const r = packages[o.type]((o.parent = ast) && o);
-		
+
 		let count = 0;
 		while ((decorator = o?.decorators?.at(0))) {
 			const start = decorator?.loc.start;
@@ -30,5 +30,6 @@ module.exports = ast => {
 
 		return builder.join('\n');
 	}).join('\n')} };`;
+
 	return body;
 }

@@ -11,5 +11,6 @@ module.exports = ast => {
 		return `${v.shift()}\nreturn${ast.argument ? ' ' + v.shift() : ''}`
 	}
 
+
 	return `return${ast.argument ? ' ' + v : ''}`
 }
