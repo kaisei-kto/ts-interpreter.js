@@ -19,19 +19,28 @@ module.exports = ast => {
 				let [h, f] = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
 				let n = f.substring(f.indexOf('function'), f.indexOf('('));
 				if (n === 'function') {
-					n = f.substring(0, f.indexOf(' = function'));
+					// console.log(f);
+					// const tag = 
+					// n = f.substring(0, Math.max(f.indexOf(' = function'), 0) || f.indexOf('= async function'));
 					const func = f.split('\n');
 
-					func[0] = `function ${n}${func[0].split(' = function')[1]}`;
+					// func[0] = `function ${n}${func[0].split(' = function')[1]}`;
 
-					f = func.join('\n');
+					// f = func.join('\n');
+
+					n = func[0].split(' = ').shift();
+					let l = func[0].substr(n.length + 3);
+
+					let header = l.substr(0, l.indexOf('('))
+					let params = l.substr(header.length);
+					func[0] = `${header} ${n}${params}`;
+					f = func.join('\n')
 				}
 				return `${h !== '' ? h + '\n' : ''}${f};module.exports.${n} = ${n};`
 			} else {
 				ast.declaration.parent = ast.declaration.type === 'VariableDeclaration' ? undefined : ast;
 				if (!ast.declaration.parent) {
 					const value = packages[ast.declaration.type](ast.declaration);
-					let h = '';
 					let f;
 
 					if (Array.isArray(value)) {
