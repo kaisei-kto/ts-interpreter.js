@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return 'this';
-}
+};

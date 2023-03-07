@@ -6,7 +6,7 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const builder = [];
-	const value = packages[ast.right.type]((ast.right.parent = ast) && ast.right)
+	const value = packages[ast.right.type]((ast.right.parent = ast) && ast.right);
 	if (Array.isArray(value)) {
 		builder.push(...value);
 	} else {
@@ -14,4 +14,4 @@ module.exports = ast => {
 	}
 
 	return `${packages[ast.left.type]((ast.left.parent = ast) && ast.left)} ${ast.operator} ${builder.join('\n')}${!ast.parent ? ';' : ''}`;
-}
+};

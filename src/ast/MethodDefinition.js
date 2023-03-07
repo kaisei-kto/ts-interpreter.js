@@ -10,4 +10,4 @@ module.exports = ast => {
 	let body = Array.isArray(value) ? value.shift() : '';
 
 	return `${header}${['method', 'constructor'].indexOf(ast.kind) === -1 ? ast.kind + ' ' : ''}${body.replace('function (', `${ast.key.name}(`)}`;
-}
+};

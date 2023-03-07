@@ -21,4 +21,4 @@ module.exports = ast => {
 	body.unshift(['interface']);
 
 	return !ast.parent ? js_docs(body) : body;
-}
+};

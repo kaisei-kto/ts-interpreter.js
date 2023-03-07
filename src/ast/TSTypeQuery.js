@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `typeof ${packages[ast.exprName.type]((ast.exprName.parent = ast) && ast.exprName)}`;
-}
+};

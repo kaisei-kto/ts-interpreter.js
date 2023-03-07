@@ -9,4 +9,4 @@ module.exports = ast => {
 	const body = packages[ast.body.type](ast.body);
 	// return `do ${body.substr(0, body.length - 1)} while (${test});`;
 	return `do ${body} while (${test});`;
-}
+};

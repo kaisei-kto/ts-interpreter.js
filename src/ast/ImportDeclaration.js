@@ -15,23 +15,35 @@ module.exports = object => {
 	// return nname.length > 0 ? `const ${nspecifier ? '{ ' : ''}${nname.join(', ')}${nspecifier ? ' }' : ''} = require(${packages[object.source.type](object.source)})` : `require(${packages[object.source.type](object.source)})`;
 	const nspecifiers = object.specifiers.filter(s => s.type === 'ImportSpecifier');
 	const dspecifiers = object.specifiers.filter(s => s.type === 'ImportDefaultSpecifier');
-	const imports = []
+	const imports = [];
 
 	if (nspecifiers.length > 0) {
-		imports.push(`const { ${nspecifiers.map(ast => packages[ast.type]((ast.parent = object) && ast)).join(', ')} } = ${`require(${packages[object.source.type](object.source)})`}`)
+		imports.push(`const { ${nspecifiers.map(ast => packages[ast.type]((ast.parent = object) && ast)).join(', ')} } = ${`require(${packages[object.source.type](object.source)})`}`);
 	}
 
 	if (dspecifiers.length > 0) {
 		imports.push(dspecifiers.map(ast => {
-			return `const ${packages[ast.type]((ast.parent = object) && ast)} = require(${packages[object.source.type](object.source)})`
-		}).join('\n'))
+			return `const ${packages[ast.type]((ast.parent = object) && ast)} = require(${packages[object.source.type](object.source)})`;
+		}).join('\n'));
 	}
 
 	if (imports.length === 0) {
-		imports.push(`require(${packages[object.source.type]((object.source.parent = object) && object.source)})`)
+		if (object.specifiers[0]?.type === 'ImportNamespaceSpecifier') {
+			const local = object.specifiers[0].local;
+			const specifier = (packages[local.type]((local.parent = object) && local));
+
+			if (typeof specifier === 'string') {
+				imports.push(`const ${specifier} = require(${packages[object.source.type](object.source)})`);
+			}
+		}
+	}
+
+	if (imports.length === 0) {
+		// console.log(object);
+		imports.push(`require(${packages[object.source.type]((object.source.parent = object) && object.source)})`);
 	}
 
 	// console.log(imports);
 
 	return imports.join('\n');
-}
+};

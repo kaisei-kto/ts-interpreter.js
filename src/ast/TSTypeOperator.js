@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `${ast.operator}${ast.typeAnnotation ? ` ${packages[ast.typeAnnotation.type]((ast.typeAnnotation.parent = ast) && ast.typeAnnotation)}` : ''}`;
-}
+};

@@ -63,6 +63,7 @@
 		}
 	}
 	class MyClass {
+		s: string;
 		/**
 		 * @param {string} s
 		 */
@@ -97,5 +98,62 @@
 		@second()
 		method() {}
 	}
+	class QueryBuilder {
+		/**
+		 * @type {string}
+		 * @private
+		 */
+		collection;
+		/**
+		 * @type {number}
+		 * @private
+		 */
+		pageNumber = 1;
+		/**
+		 * @type {number}
+		 * @private
+		 */
+		itemsPerPage = 100;
+		/**
+		 * @type {string[]}
+		 * @private
+		 */
+		orderByFields = [];
+		/**
+		 * @param {string} collection
+		 * @returns {this}
+		 */
+		from(collection) {
+			this.collection = collection;
+			return this;
+		}
+		/**
+		 * @param {number} number
+		 * @param {any}
+		 * @returns {this}
+		 */
+		page(number, itemsPerPage = 100) {
+			this.pageNumber = number;
+			this.itemsPerPage = itemsPerPage;
+			return this;
+		}
+		/**
+		 * @param {string[]}
+		 * @returns {this}
+		 */
+		orderBy(...fields) {
+			this.orderByFields = fields;
+			return this;
+		}
+		/**
+		 * @returns {Query}
+		 */
+		build() {}
+	}
+	const query = new QueryBuilder()
+		.from('users')
+		.page(1, 100)
+		.orderBy('firstName', 'lastName')
+		.build();
 	return module.exports;
 })();

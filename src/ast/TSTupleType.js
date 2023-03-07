@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `[ ${ast.elementTypes.map(o => packages[o.type]((o.parent = ast) && o))} ]`;
-}
+};

@@ -5,8 +5,8 @@ const { packages } = require('../index');
  * @param {import("@typescript-eslint/types/dist/generated/ast-spec").ClassDeclaration} ast 
  */
 module.exports = ast => {
-	const builder = [ 'class' ];
-	let docs = []
+	const builder = ['class'];
+	let docs = [];
 
 	if (ast.abstract) {
 		docs.push('abstract');
@@ -28,12 +28,12 @@ module.exports = ast => {
 
 
 	if (ast.implements) {
-		docs.push([ 'implements', ...ast.implements.map(o => packages[o.type]((o.parent = ast) && o)) ]);
+		docs.push(['implements', ...ast.implements.map(o => packages[o.type]((o.parent = ast) && o))]);
 	}
 
 	if (docs.length > 0) {
-		builder.unshift(require('../utils').js_docs(docs) + '\n')
+		builder.unshift(require('../utils').js_docs(docs) + '\n');
 	}
 
 	return `${builder.join(' ')} ${packages['ClassBody']((ast.body.parent = ast) && ast.body)}`;
-}
+};

@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `${packages[ast.meta.type](ast.meta)}.${packages[ast.property.type](ast.property)}`;
-}
+};

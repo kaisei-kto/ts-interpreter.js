@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `yield${ast.delegate ? '*' : ''}${ast.argument ? ' ' + packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument) : ''}`;
-}
+};

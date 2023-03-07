@@ -23,4 +23,4 @@ module.exports = ast => {
 	}
 
 	return builder.join(' ');
-}
+};

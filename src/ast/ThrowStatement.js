@@ -10,6 +10,6 @@ module.exports = ast => {
 	if (Array.isArray(v)) {
 		return `require('assert')(false, ${v.pop()});`;
 	}
-	
+
 	return `require('assert')(false, ${ast.argument ? ' ' + v : ''});`;
-}
+};

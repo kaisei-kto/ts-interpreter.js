@@ -14,4 +14,4 @@ const { packages } = require('../index');
 module.exports = (ast) => {
 	// console.log(ast);
 	return ast.body.map(o => packages[o.type](o));
-}
+};

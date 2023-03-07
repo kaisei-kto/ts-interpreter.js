@@ -6,10 +6,10 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `new ${packages[ast.callee.type]((ast.callee.parent = ast.callee))}(${ast.arguments.map(o => {
-		const value = packages[o.type]((o.parent = ast) && o)
+		const value = packages[o.type]((o.parent = ast) && o);
 
 		if (Array.isArray(value)) return value.join('\n');
 
 		return value;
-	}).join(', ')})`
-}
+	}).join(', ')})`;
+};

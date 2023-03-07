@@ -10,4 +10,4 @@ export function absolute(num: number) {
 }
 
 import * as imported from './export.ts';
-console.log(imported.pi)
+console.log(imported.pi);

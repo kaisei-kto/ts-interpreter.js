@@ -10,4 +10,4 @@ module.exports = ast => {
 	}
 
 	return 'raw' in ast ? ast.raw : JSON.stringify(ast.value);
-}
+};

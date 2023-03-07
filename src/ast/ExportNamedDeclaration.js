@@ -1,6 +1,6 @@
 const { packages } = require('../index');
 
-const { js_docs } = require("../utils");
+const { js_docs } = require('../utils');
 
 /**
  * 
@@ -31,12 +31,12 @@ module.exports = ast => {
 					n = func[0].split(' = ').shift();
 					let l = func[0].substr(n.length + 3);
 
-					let header = l.substr(0, l.indexOf('('))
+					let header = l.substr(0, l.indexOf('('));
 					let params = l.substr(header.length);
 					func[0] = `${header} ${n}${params}`;
-					f = func.join('\n')
+					f = func.join('\n');
 				}
-				return `${h !== '' ? h + '\n' : ''}${f};module.exports.${n} = ${n};`
+				return `${h !== '' ? h + '\n' : ''}${f};module.exports.${n} = ${n};`;
 			} else {
 				ast.declaration.parent = ast.declaration.type === 'VariableDeclaration' ? undefined : ast;
 				if (!ast.declaration.parent) {
@@ -50,13 +50,13 @@ module.exports = ast => {
 					}
 
 					const n = f.substring((f.indexOf(ast.declaration.kind + ' ')) + ast.declaration.kind.length + 1, f.indexOf(' ='));
-					return `${f};module.exports.${n} = ${n};`
+					return `${f};module.exports.${n} = ${n};`;
 				}
 
 				const value = packages[ast.declaration.type](ast.declaration);
 				let n;
 				if (value?.indexOf('const ') === 0 || value?.indexOf('var ') === 0 || value?.indexOf('let ') === 0) {
-					n = value.split(' ')[1]
+					n = value.split(' ')[1];
 				}
 				return n ? `${value}\nmodule.exports.${n} = ${n}` : `module.exports.${value}`;
 			}
@@ -71,6 +71,6 @@ module.exports = ast => {
 			specifiers.push(key !== value ? `${key}: ${value}` : key);
 		}
 
-		return `module.exports = {${specifiers.join(',')}}`
+		return `module.exports = {${specifiers.join(',')}}`;
 	}
-}
+};

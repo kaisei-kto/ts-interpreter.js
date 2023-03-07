@@ -14,6 +14,7 @@ npm i ts-interpreter.js -g
 ```
 
 # Coverage
+- [x] Full Enum Support
 - [x] Array / Object methods
 - [x] Class methods
 - [x] `export` / `import` conversion to `module.exports`

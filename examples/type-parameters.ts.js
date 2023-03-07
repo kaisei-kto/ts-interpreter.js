@@ -1,5 +1,14 @@
 (function () {
-	const LogLevel = { ERROR: 0, WARN: 1, INFO: 2, DEBUG: 3 };
+	const LogLevel = {
+		0: 'ERROR',
+		1: 'WARN',
+		2: 'INFO',
+		3: 'DEBUG',
+		ERROR: 0,
+		WARN: 1,
+		INFO: 2,
+		DEBUG: 3,
+	};
 	/**
 	 * @typedef LogLevelStrings
 	 * @type {keyof typeof LogLevel}

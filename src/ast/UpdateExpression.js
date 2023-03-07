@@ -10,4 +10,4 @@ module.exports = ast => {
 	// }
 
 	return `${packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument)}${ast.operator}`;
-}
+};

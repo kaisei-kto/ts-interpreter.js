@@ -7,5 +7,5 @@ const { packages } = require('../index');
 module.exports = ast => {
 	const body = ast.body.map(o => packages[o.type](o));
 
-	return body.length > 0 ? `{\n${body.join('\n')}\n}` : '{ }'
-}
+	return body.length > 0 ? `{\n${body.join('\n')}\n}` : '{ }';
+};

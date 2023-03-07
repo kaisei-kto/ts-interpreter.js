@@ -7,5 +7,5 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	// console.log(ast.parent?.type || caller())
-	return `${!ast.parent?';':''}[${ast.elements.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')}]`;
-}
+	return `${!ast.parent ? ';' : ''}[${ast.elements.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')}]`;
+};

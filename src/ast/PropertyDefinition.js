@@ -8,8 +8,14 @@ const { js_docs } = require('../utils');
 module.exports = ast => {
 	const typings = []
 	if (ast.typeAnnotation) {
-		typings.push([ 'type', packages[ast.typeAnnotation.type](ast.typeAnnotation) ]);
+		typings.push(['type', packages[ast.typeAnnotation.type](ast.typeAnnotation)]);
 	}
 
-	return `${typings.length > 0 ? js_docs(typings) + '\n' : ''}${ast.static ? 'static ' : ''}${ast.accessibility === 'private' ? '#' : ''}${packages[ast.key.type]((ast.key.parent = ast) && ast.key)}${ast.value ? `= ${packages[ast.value.type]((ast.value.parent = ast) && ast.value)}` : ''}`;
+	if (ast.accessibility === 'private') {
+		if (!typings.find(o => o[0] === 'private')) {
+			typings.push([ 'private' ])
+		}
+	}
+
+	return `${typings.length > 0 ? js_docs(typings) + '\n' : ''}${ast.static ? 'static ' : ''}${ast.accessibility === 'private' ? '' : ''}${packages[ast.key.type]((ast.key.parent = ast) && ast.key)}${ast.value ? `= ${packages[ast.value.type]((ast.value.parent = ast) && ast.value)}` : ''}`;
 }

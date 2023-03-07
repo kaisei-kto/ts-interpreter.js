@@ -12,7 +12,7 @@ module.exports = ast => {
 			return `${identifier}${o.optional ? '?' : ''}: ${packages[o.typeAnnotation.type]((o.typeAnnotation.parent = ast) && o.typeAnnotation)}`;
 		}
 
-		return `identifier`;
+		return 'identifier';
 	});
 
 	// console.log(params);
@@ -23,4 +23,4 @@ module.exports = ast => {
 
 	// prone to mess up for the most part, ill look into this whenever i have enough time
 	return params;
-}
+};

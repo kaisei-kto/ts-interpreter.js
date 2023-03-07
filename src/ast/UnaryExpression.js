@@ -8,4 +8,4 @@ module.exports = ast => {
 	// const wrap = ['void', 'typeof', 'delete'].indexOf(ast.operator) !== -1;
 	return `${ast.operator}(${packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument)})`;
 	// return `${ast.operator}${wrap ? ' (' : ''}${require(`./${ast.argument.type}`)(ast.argument)}${wrap ? ')' : ''}`;
-}
+};

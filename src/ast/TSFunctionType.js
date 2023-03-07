@@ -14,4 +14,4 @@ module.exports = ast => {
 
 		return `${identifier}${type ? `: ${type}` : ''}`;
 	})}) => ${ast.returnType ? packages[ast.returnType.type]((ast.returnType.parent = ast) && ast.returnType) : 'undefined'}`;
-}
+};

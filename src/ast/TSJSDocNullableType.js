@@ -8,4 +8,4 @@ module.exports = ast => {
 	if (ast.typeAnnotation) {
 		return packages[ast.typeAnnotation.type]((ast.typeAnnotation.parent = ast) && ast.typeAnnotation);
 	}
-}
+};

@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `with (${packages[ast.object.type]((ast.object = ast) && ast.object)}) ${packages[ast.body.type](ast.body)}`;
-}
+};

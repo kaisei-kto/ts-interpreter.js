@@ -7,4 +7,4 @@ const { packages } = require('../index');
 module.exports = specifier => {
 	// return `${specifier.local.name !== specifier.imported.name ? specifier.imported.name + ': ' : ''}${specifier.local.name}`;
 	return specifier.local.name;
-}
+};

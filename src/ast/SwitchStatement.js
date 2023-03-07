@@ -6,7 +6,7 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const discriminant = packages[ast.discriminant.type]((ast.discriminant.parent = ast) && ast.discriminant);
-	const cases = ast.cases.map(o => packages[o.type]((o.parent = ast) && o)).join('\n')
+	const cases = ast.cases.map(o => packages[o.type]((o.parent = ast) && o)).join('\n');
 
-	return `switch(${discriminant}) {\n${cases}\n}`
-}
+	return `switch(${discriminant}) {\n${cases}\n}`;
+};

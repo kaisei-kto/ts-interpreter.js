@@ -8,4 +8,4 @@ const { packages } = require('../index');
 module.exports = ast => {
 	// console.log(caller())
 	return `...${packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument)}`;
-}
+};

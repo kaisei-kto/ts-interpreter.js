@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": false,
+        "es2022": true,
         "commonjs": true,
         "node": true
     },
@@ -18,15 +19,15 @@
     "ignorePatterns": ["test.js"],
     "rules": {
         "indent": [
-            "off",
+            "warn",
             "tab"
         ],
         "quotes": [
-            "off",
+            "warn",
             "single"
         ],
         "semi": [
-            "off",
+            "warn",
             "always"
         ],
         "no-unused-labels":"warn"

@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `${ast.computed ? '[' : ''}${packages[ast.id.type]((ast.id.parent = ast) && ast.id)}${ast.computed ? ']' : ''}`;
-}
+};

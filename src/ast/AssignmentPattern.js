@@ -8,5 +8,5 @@ module.exports = ast => {
 	const left = ast.left.name;
 	const right = ast.right;
 
-	return `${left} = ${packages[right.type]((right.parent = ast) && right)}`
-}
+	return `${left} = ${packages[right.type]((right.parent = ast) && right)}`;
+};

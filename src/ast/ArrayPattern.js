@@ -6,5 +6,5 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	// if (ast.decorators || ast.optional) console.log(ast);
-	return `[ ${ast.elements.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')} ]`
-}
+	return `[ ${ast.elements.map(o => packages[o.type]((o.parent = ast) && o)).join(', ')} ]`;
+};

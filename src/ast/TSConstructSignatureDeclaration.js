@@ -13,5 +13,5 @@ module.exports = ast => {
 		}
 
 		return identifier;
-	}).join(', ')})`
-}
+	}).join(', ')})`;
+};

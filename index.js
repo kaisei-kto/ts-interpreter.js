@@ -15,11 +15,11 @@ const src = require('./src');
 const { join, dirname, basename } = require('path');
 const prettier = require('prettier');
 const opts = {
-	minify: true,
+	minify: false,
 	pretty: true,
 	debug: false,
 	sample: false
-}
+};
 
 global.__tsi_esm = false;
 
@@ -36,10 +36,6 @@ function check_dir(fpath) {
 	mkdirSync(__dirname);
 }
 
-function walk(ast, cb) {
-	console.log(ast);
-}
-
 /**
  * 
  * @returns {{
@@ -51,7 +47,7 @@ function parse_src(src) {
 	const object = {
 		ast: undefined,
 		error: undefined
-	}
+	};
 
 	try {
 		object.ast = parse(src, {
@@ -70,8 +66,8 @@ function parse_src(src) {
 		});
 
 	} catch (e) {
-		object.ast = undefined
-		object.error = e
+		object.ast = undefined;
+		object.error = e;
 	}
 
 	return object;
@@ -88,7 +84,7 @@ function init(file_path) {
 	}
 	const content = readFileSync(file_path, 'utf8');
 
-	const { ast, error } = parse_src(content)
+	const { ast, error } = parse_src(content);
 
 	if (error) {
 		if (typeof error === 'object' && typeof error.message === 'string' && typeof error.lineNumber === 'number' && typeof error.column === 'number') {
@@ -112,7 +108,7 @@ function init(file_path) {
 		filepath: file_path + '.runtime',
 		parser: 'babel-ts',
 		endOfLine: 'crlf'
-	})
+	});
 
 	if (opts.debug) {
 		const fpath = join('ts.interpreter.js', (file_path + '.js').substr(require.main.path.length));
@@ -137,7 +133,7 @@ module.exports = function () {
 			return init;
 		}
 	}
-}
+};
 
 if (opts.sample) {
 	for (const f of readdirSync('examples').filter(f => f.endsWith('.ts'))) {

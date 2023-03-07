@@ -13,8 +13,8 @@ module.exports = ast => {
 	}
 
 	if (ast.parent) {
-		return `${name}: ${type}`
+		return `${name}: ${type}`;
 	}
 
-	return [ 'property', type, name ]
-}
+	return ['property', type, name];
+};

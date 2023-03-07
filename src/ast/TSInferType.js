@@ -6,4 +6,4 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	return `infer ${packages[ast.typeParameter.type]((ast.typeParameter.parent = ast) && ast.typeParameter)}`;
-}
+};

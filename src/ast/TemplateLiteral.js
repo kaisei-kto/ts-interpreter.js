@@ -10,9 +10,9 @@ module.exports = ast => {
 		let expression = ast.expressions.shift();
 
 		if (expression) {
-			expression = '${' + packages[expression.type]((expression.parent = ast) && expression) + '}'
+			expression = '${' + packages[expression.type]((expression.parent = ast) && expression) + '}';
 		}
 
-		return expression ? `${element}${expression}` : element
-	}).join('')}\``
-}
+		return expression ? `${element}${expression}` : element;
+	}).join('')}\``;
+};

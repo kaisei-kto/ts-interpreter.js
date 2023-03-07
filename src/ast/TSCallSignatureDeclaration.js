@@ -14,5 +14,5 @@ module.exports = ast => {
 
 	// 	return identifier;
 	// }).join(', ')})`
-	return [ 'unknown', undefined, 'TSCallSignatureDeclaration' ];
-}
+	return ['unknown', undefined, 'TSCallSignatureDeclaration'];
+};

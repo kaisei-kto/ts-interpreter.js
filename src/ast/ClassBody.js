@@ -6,7 +6,7 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const body = `{ ${ast.body.map(o => {
-		let builder = []
+		let builder = [];
 		const r = packages[o.type]((o.parent = ast) && o);
 
 		let count = 0;
@@ -15,7 +15,7 @@ module.exports = ast => {
 			const ostart = o.loc.start;
 			if (start.line <= (ostart.line + count)) {
 				builder.push(`@${packages[decorator.expression.type](decorator.expression)}`);
-				o.decorators?.shift()
+				o.decorators?.shift();
 				count += 1;
 			} else {
 				break;
@@ -32,4 +32,4 @@ module.exports = ast => {
 	}).join('\n')} };`;
 
 	return body;
-}
+};

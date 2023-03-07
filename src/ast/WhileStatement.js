@@ -8,4 +8,4 @@ module.exports = ast => {
 	const test = packages[ast.test.type]((ast.test.parent = ast) && ast.test);
 
 	return `while (${test}) ${packages[ast.body.type](ast.body)}`;
-}
+};
