@@ -1,6 +1,6 @@
 {
   "name": "ts-interpreter.js",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -11,6 +11,8 @@
   },
   "type": "commonjs",
   "keywords": [
+    "tsi-cli",
+    "cli",
     "ts-compiler",
     "ts-interpreter",
     "ts-runtime",
@@ -35,19 +37,19 @@
   "author": "kaisei-kto",
   "license": "ISC",
   "dependencies": {
-    "@typescript-eslint/parser": "^5.47.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "caller": "^1.1.0",
     "clarify-plus": "^2.0.0",
     "fs-extra": "^11.1.0",
-    "prettier": "^2.8.1"
+    "prettier": "^2.8.4"
   },
   "devDependencies": {
     "@mysticatea/eslint-plugin": "^13.0.0",
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.14.6",
     "eslint": "^6.8.0",
     "eslint-plugin-detect-no-assignment": "^0.0.3",
     "express": "^4.18.2",
     "node-7z": "^3.0.0",
-    "tslib": "^2.4.1"
+    "tslib": "^2.5.0"
   }
 }

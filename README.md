@@ -25,6 +25,14 @@ npm i ts-interpreter.js -g
 - [x] Operators
 - [x] Expressions
 
+# Samples
+[Click here to view samples of compiled TS to JS](https://github.com/kaisei-kto/ts-interpreter.js/tree/main/examples)
+
+# Tests & Comparisons
+- tsc compiler: 1.159s - 1.381s (8 files)
+- ts-node runtime compiler: 1.052s - 1.235s (8 files)
+- ts-interpreter.js runtime compiler: 32.527ms - 507.492ms (8 files)
+
 # API Usage
 index.js
 ```js
@@ -46,15 +54,8 @@ export function whoami(): string|any {
 file   : tsi-cli <input.ts> <out.js>
 auto   : tsi-cli <input.ts> - # replaces - to <input.ts>.js
 console: tsi-cli <input.ts> --
+project-dist: tsi-cli project-dist
 ```
-
-# Samples
-[Click here to view samples of compiled TS to JS](https://github.com/kaisei-kto/ts-interpreter.js/tree/main/examples)
-
-# Tests & Comparisons
-- tsc compiler: 1.159s - 1.381s (8 files)
-- ts-node runtime compiler: 1.052s - 1.235s (8 files)
-- ts-interpreter.js runtime compiler: 32.527ms - 507.492ms (8 files)
 
 # Packages
 [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser)

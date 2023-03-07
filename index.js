@@ -1,12 +1,6 @@
 require('clarify-plus');
 // const { parse } = require('@typescript-eslint/parser');
 const { parse } = require('@typescript-eslint/typescript-estree');
-// console.log(require('@typescript-eslint/typescript-estree').parse('/* yo */\nconsole.log', {
-// 	preserveNodeMaps: true,
-// 	comment: true,
-// 	tokens: true,
-// 	range: true
-// }))
 const { cache } = require('./src/shared');
 const { fix_code } = require('./src/vm/utils');
 const { log } = require('./src/utils');
@@ -96,7 +90,6 @@ function init(file_path) {
 		process.exit(1);
 	}
 
-
 	const compiled_code = src.interpret(ast);
 
 	const code = prettier.format(compiled_code, {
@@ -111,7 +104,7 @@ function init(file_path) {
 	});
 
 	if (opts.debug) {
-		const fpath = join('ts.interpreter.js', (file_path + '.js').substr(require.main.path.length));
+		const fpath = join('ts.interpreter.js', (file_path + '.js').substr(process.cwd().length));
 		check_dir(fpath);
 		writeFileSync(fpath, code);
 	}

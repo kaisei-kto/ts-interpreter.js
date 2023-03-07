@@ -22,7 +22,11 @@ module.exports = ast => {
 	return `${header ? header + '\n' : ''}${!ast.parent && is_anonymous_function_call ? ';(' : ''}${body}${!ast.parent && is_anonymous_function_call ? ')' : ''}(${ast.arguments.map(o => {
 		const value = packages[o.type]((o.parent = ast) && o);
 		if (Array.isArray(value)) {
-			return `${value.shift()}\n${value.shift()}`;
+			// if (body === 'router.get') {
+			// 	console.log(value)
+			// 	console.log(ast)
+			// }
+			return `\n${value.shift()}\n${value.shift()}`;
 		}
 
 		return value;

@@ -27,31 +27,31 @@
 	 */
 	function listenForEvent(eventType, handler) {}
 	listenForEvent(
-		'keyboard'
+		'keyboard',
 		/**
 		 * @param {KeyboardInputEvent} event
-		 */,
+		 */
 		(event) => {},
 	);
 	listenForEvent(
-		'mouse'
+		'mouse',
 		/**
 		 * @param {MouseInputEvent} event
-		 */,
+		 */
 		(event) => {},
 	);
 	listenForEvent(
-		'mouse'
+		'mouse',
 		/**
 		 * @param {{  }} event
-		 */,
+		 */
 		(event) => {},
 	);
 	listenForEvent(
-		'mouse'
+		'mouse',
 		/**
 		 * @param {string} event
-		 */,
+		 */
 		(event) => {},
 	);
 	/**
@@ -60,18 +60,18 @@
 	 */
 	function getRandomNumbers(count, callback) {}
 	getRandomNumbers(
-		2
+		2,
 		/**
 		 * @param {any} first
 		 * @param {any} second
-		 */,
+		 */
 		(first, second) => console.log([first, second]),
 	);
 	getRandomNumbers(
-		400
+		400,
 		/**
 		 * @param {any} first
-		 */,
+		 */
 		(first) => console.log(first),
 	);
 

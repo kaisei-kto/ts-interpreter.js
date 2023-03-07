@@ -4,3 +4,4 @@ node_modules
 binaries*
 ^(.git)$
 *.zip
+update_packages.js

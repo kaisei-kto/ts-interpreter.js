@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const compile = require('./')();
+const { rmSync } = require('fs');
 const { outputFileSync, readFileSync, readdirSync, existsSync, rmdirSync, mkdirSync, lstatSync } = require('fs-extra');
 const { join } = require('path');
 const { log } = require('./src/utils');
@@ -60,7 +61,7 @@ function recursive(path = '.') {
 
 if (ipath === 'project-dist') {
 	if (existsSync('ts-interpreter.js-dist')) {
-		rmdirSync('ts-interpreter.js-dist', { recursive: true });
+		rmSync('ts-interpreter.js-dist', { recursive: true, force: true });
 	}
 
 	mkdirSync('ts-interpreter.js-dist');
@@ -69,8 +70,8 @@ if (ipath === 'project-dist') {
 
 	for (const file of files) {
 		if (file.endsWith('.ts') && !file.endsWith('.d.ts')) {
-			// console.log(file);
-			interpret(file, join('ts-interpreter.js-dist', file.substr(0, file.lastIndexOf('.'))));
+			const path = join('ts-interpreter.js-dist', file);
+			interpret(file, path.substr(0, path.lastIndexOf('.')));
 		} else {
 			outputFileSync(join('ts-interpreter.js-dist', file), readFileSync(file, 'utf8'));
 		}

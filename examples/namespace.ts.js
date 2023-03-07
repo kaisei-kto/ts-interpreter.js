@@ -82,6 +82,5 @@
 		this.Facade = Facade;
 		return this;
 	})();
-
 	return module.exports;
 })();
