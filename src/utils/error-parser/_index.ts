@@ -16,7 +16,7 @@ function find_stack(stacks) {
 	}
 }
 
-export function e_parser(e: Error) : {
+export function e_parser(e: Error): {
 	name?: string,
 	message?: string,
 	stack?: string,
@@ -33,16 +33,16 @@ export function e_parser(e: Error) : {
 		raw: e,
 		line: 0,
 		column: 0
-	}
+	};
 
 	if (typeof o.stack === 'string') {
 		const stack = find_stack(o.stack.split('\n'));
 		if (typeof stack === 'string') {
-			const start = stack.lastIndexOf(runtime)
+			const start = stack.lastIndexOf(runtime);
 			const end = Math.max(0, stack.lastIndexOf(')')) || undefined;
 
 			if (start !== -1) {
-				const [ line, column ] = stack.substring(start + runtime.length, end).split(':');
+				const [line, column] = stack.substring(start + runtime.length, end).split(':');
 				o.line = Number(line);
 				o.column = Number(column) || 1;
 

@@ -1,55 +1,53 @@
 {
-  "name": "ts-interpreter.js",
-  "version": "1.5.1",
-  "description": "",
-  "main": "index.js",
-  "bin": {
-    "tsi-cli": "./cli.js"
-  },
-  "scripts": {
-    "test": "tsi-cli --help"
-  },
-  "type": "commonjs",
-  "keywords": [
-    "tsi-cli",
-    "cli",
-    "ts-compiler",
-    "ts-interpreter",
-    "ts-runtime",
-    "typescript compiler",
-    "typescript interpreter",
-    "typescript runtime",
-    "compiler",
-    "interpreter",
-    "runtime",
-    "typescript",
-    "javascript",
-    "ts",
-    "js",
-    "evaluator",
-    "evaluate",
-    "eval"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kaisei-kto/ts-interpreter.js.git"
-  },
-  "author": "kaisei-kto",
-  "license": "ISC",
-  "dependencies": {
-    "@typescript-eslint/parser": "^5.54.1",
-    "caller": "^1.1.0",
-    "clarify-plus": "^2.0.0",
-    "fs-extra": "^11.1.0",
-    "prettier": "^2.8.4"
-  },
-  "devDependencies": {
-    "@mysticatea/eslint-plugin": "^13.0.0",
-    "@types/node": "^18.14.6",
-    "eslint": "^6.8.0",
-    "eslint-plugin-detect-no-assignment": "^0.0.3",
-    "express": "^4.18.2",
-    "node-7z": "^3.0.0",
-    "tslib": "^2.5.0"
-  }
+	"name": "ts-interpreter.js",
+	"version": "1.5.2",
+	"description": "",
+	"main": "index.js",
+	"bin": {
+		"tsi-cli": "./cli.js"
+	},
+	"scripts": {
+		"test": "tsi-cli --help"
+	},
+	"type": "commonjs",
+	"keywords": [
+		"tsi-cli",
+		"cli",
+		"ts-compiler",
+		"ts-interpreter",
+		"ts-runtime",
+		"typescript compiler",
+		"typescript interpreter",
+		"typescript runtime",
+		"compiler",
+		"interpreter",
+		"runtime",
+		"typescript",
+		"javascript",
+		"ts",
+		"js",
+		"evaluator",
+		"evaluate",
+		"eval"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kaisei-kto/ts-interpreter.js.git"
+	},
+	"author": "kaisei-kto",
+	"license": "ISC",
+	"dependencies": {
+		"@typescript-eslint/typescript-estree": "^6.0.0",
+		"caller": "^1.1.0",
+		"clarify-plus": "^2.0.0",
+		"eslint-formatter-pretty": "^5.0.0",
+		"fs-extra": "^11.1.1",
+		"prettier": "^2.8.8"
+	},
+	"devDependencies": {
+		"@types/node": "^20.4.2",
+		"@typescript-eslint/parser": "^6.0.0",
+		"@typescript-eslint/types": "^6.0.0",
+		"eslint": "^8.44.0"
+	}
 }

@@ -27,7 +27,7 @@ module.exports = ast => {
 	}
 
 
-	if (ast.implements) {
+	if (Array.isArray(ast.implements) && ast.implements.length > 0) {
 		docs.push(['implements', ...ast.implements.map(o => packages[o.type]((o.parent = ast) && o))]);
 	}
 

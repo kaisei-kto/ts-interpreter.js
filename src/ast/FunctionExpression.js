@@ -28,5 +28,6 @@ module.exports = ast => {
 		return array;
 	}
 
+	array[1] = `;(${array[1]});`;
 	return array[0] !== '' ? array.join('\n') : array.pop();
 };

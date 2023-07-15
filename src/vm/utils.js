@@ -13,4 +13,4 @@ const fix_code = (s) => {
 	return [ new_str, count ];
 };
 
-module.exports = { fix_code }
+module.exports = { fix_code };

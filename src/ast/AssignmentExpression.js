@@ -13,5 +13,17 @@ module.exports = ast => {
 		builder.push(value);
 	}
 
-	return `${packages[ast.left.type]((ast.left.parent = ast) && ast.left)} ${ast.operator} ${builder.join('\n')}${!ast.parent ? ';' : ''}`;
+	
+	let result = `${packages[ast.left.type]((ast.left.parent = ast) && ast.left)} ${ast.operator} ${builder.join('\n')}${!ast.parent ? ';' : ''}`;
+	let type = ast.parent?.type;
+
+	if ([
+		'BinaryExpression',
+		'UnaryExpression',
+		'LogicalExpression'
+	].indexOf(type) !== -1) {
+		result = `(${result})`;
+	}
+
+	return result;
 };

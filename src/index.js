@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const ast_path = join(__dirname, 'ast');
 
 function create_runtime_string(str) {
-	return `(function(){\n${str}\n;return module.exports})();`
+	return `(function(){\n${str}\n;return module.exports})();`;
 }
 
 /**
@@ -13,26 +13,19 @@ function create_runtime_string(str) {
  * @param {import('@typescript-eslint/types/dist/generated/ast-spec').Program} ast 
  */
 function interpret(ast) {
-	const code = [];
-
-	for (const object of ast.body) {
+	return create_runtime_string(Array.from(ast.body.keys()).map((_, idx) => {
+		const object = ast.body[idx];
 		const { type } = object;
 		let fcall = packages[type];
 
 		if (fcall) {
-			const line = fcall(object);
+			let line = fcall(object);
 
 			if (typeof line === 'string') {
-				// log(type, 'error');
-				// console.log(line);
-				code.push(line);
+				return line;
 			}
 		} else throw new ReferenceError(`${type} does not exist in the ast path`);
-	}
-
-	const joined = code.join('\n');
-
-	return create_runtime_string(joined);
+	}).join('\n'));
 }
 
 module.exports = {

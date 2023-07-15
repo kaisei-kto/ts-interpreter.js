@@ -10,11 +10,12 @@ module.exports = ast => {
 		const r = packages[o.type]((o.parent = ast) && o);
 
 		let count = 0;
+		let decorator;
 		while ((decorator = o?.decorators?.at(0))) {
 			const start = decorator?.loc.start;
 			const ostart = o.loc.start;
 			if (start.line <= (ostart.line + count)) {
-				builder.push(`@${packages[decorator.expression.type](decorator.expression)}`);
+				builder.push(`@${packages[decorator.expression.type]((decorator.expression.parent = decorator) && decorator.expression)}`);
 				o.decorators?.shift();
 				count += 1;
 			} else {

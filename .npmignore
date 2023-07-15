@@ -5,3 +5,4 @@ binaries*
 ^(.git)$
 *.zip
 update_packages.js
+decorator.js

@@ -10,7 +10,7 @@ module.exports = (init) => {
 
 		for (let k of Object.getOwnPropertyNames(global)) sandbox[k] = global[k];
 		const filename = `${module.id}.runtime`;
-		sandbox.require = module.require.bind(module)
+		sandbox.require = module.require.bind(module);
 		Object.defineProperty(sandbox.require, 'cache', {
 			get() {
 				return require.cache;
@@ -36,7 +36,7 @@ module.exports = (init) => {
 			let object = typeof e === 'object' ? e : new Error(e);
 
 			if (String(object?.stack.split('\n')[2]).indexOf('^') !== -1) {
-				const stack = object.stack.split('\n')
+				const stack = object.stack.split('\n');
 				stack.splice(0, 3);
 
 				while (stack[0] === '') {
@@ -47,8 +47,8 @@ module.exports = (init) => {
 					const lstack = stack[1];
 					const index = lstack.indexOf('at ') + 3;
 					const astack = lstack.split('');
-					const fpart = astack.splice(0, index)
-					const new_stack = `${fpart.join('')}runtime_compiler (${astack.join('')})`
+					const fpart = astack.splice(0, index);
+					const new_stack = `${fpart.join('')}runtime_compiler (${astack.join('')})`;
 					stack[1] = new_stack;
 				}
 
@@ -61,12 +61,12 @@ module.exports = (init) => {
 					}
 				}
 				object.message = stack[0].indexOf(': ') !== -1 ? stack[0].substr(stack[0].indexOf(': ') + 2) : undefined;
-				object.stack = stack.join('\n')
+				object.stack = stack.join('\n');
 			}
 
 			handle_exception(object);
 		}
-	}
+	};
 
 	handle_exception = require('./error_handler');
-}
+};

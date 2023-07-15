@@ -18,12 +18,12 @@ module.exports = object => {
 	const imports = [];
 
 	if (nspecifiers.length > 0) {
-		imports.push(`const { ${nspecifiers.map(ast => packages[ast.type]((ast.parent = object) && ast)).join(', ')} } = ${`require(${packages[object.source.type](object.source)})`}`);
+		imports.push(`const { ${nspecifiers.map(ast => packages[ast.type]((ast.parent = object) && ast)).join(', ')} } = ${`require(${packages[object.source.type](object.source)})`};`);
 	}
 
 	if (dspecifiers.length > 0) {
 		imports.push(dspecifiers.map(ast => {
-			return `const ${packages[ast.type]((ast.parent = object) && ast)} = require(${packages[object.source.type](object.source)})`;
+			return `const ${packages[ast.type]((ast.parent = object) && ast)} = require(${packages[object.source.type](object.source)});`;
 		}).join('\n'));
 	}
 
@@ -33,14 +33,14 @@ module.exports = object => {
 			const specifier = (packages[local.type]((local.parent = object) && local));
 
 			if (typeof specifier === 'string') {
-				imports.push(`const ${specifier} = require(${packages[object.source.type](object.source)})`);
+				imports.push(`const ${specifier} = require(${packages[object.source.type](object.source)});`);
 			}
 		}
 	}
 
 	if (imports.length === 0) {
 		// console.log(object);
-		imports.push(`require(${packages[object.source.type]((object.source.parent = object) && object.source)})`);
+		imports.push(`require(${packages[object.source.type]((object.source.parent = object) && object.source)});`);
 	}
 
 	// console.log(imports);

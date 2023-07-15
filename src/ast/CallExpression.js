@@ -1,4 +1,3 @@
-const caller = require('caller');
 const { packages } = require('../index');
 
 /**
@@ -30,5 +29,5 @@ module.exports = ast => {
 		}
 
 		return value;
-	}).join(', ')})${!ast.parent && is_anonymous_function_call ? ';' : ''}`;
+	}).join(', ')})${!ast.parent && is_anonymous_function_call ? ';' : ''}${!ast.parent ? ';' : ''}`;
 };

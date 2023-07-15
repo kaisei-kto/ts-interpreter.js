@@ -1,5 +1,5 @@
-const caller = require("caller");
-const { inspect } = require("util");
+const caller = require('caller');
+const { inspect } = require('node:util');
 
 const log = {};
 const title = 'ts-interpreter';
@@ -35,37 +35,37 @@ const colors = {
 	debug: ['\x1b[40m\x1b[34m'],
 	error: ['\x1b[40m\x1b[31m'],
 	reset: '\x1b[0m'
-}
+};
 
 function build_console(label) {
 	return function () {
 		arguments = Array.from(arguments);
-		const builder = [`[${colors[label].join('')}${title}${colors.reset}]`]
+		const builder = [`[${colors[label].join('')}${title}${colors.reset}]`];
 
 		if (arguments[0]) {
-			const arg = arguments.shift()
-			builder.push(typeof arg !== 'object' ? arg : inspect(arg, false, undefined, true))
+			const arg = arguments.shift();
+			builder.push(typeof arg !== 'object' ? arg : inspect(arg, false, undefined, true));
 		}
 
-		console.log(builder.join(' '), ...arguments)
-	}
+		console.log(builder.join(' '), ...arguments);
+	};
 }
 
-log.debug = build_console('debug')
-log.error = build_console('error')
-log.info = build_console('info')
+log.debug = build_console('debug');
+log.error = build_console('error');
+log.info = build_console('info');
 
 function js_docs(props) {
-	const docs = ['/**']
+	const docs = ['/**'];
 	// console.log(caller());
 	// console.log(props);
 	for (const [key, value, name] of props) {
-		docs.push(` * @${key}${key === 'template' ? ' ' + (value ?? '') : value !== undefined ? ` {${value}}` : ''}${name ? ' ' + name : ''}`)
+		docs.push(` * @${key}${key === 'template' ? ' ' + (value ?? '') : value !== undefined ? ` {${value}}` : ''}${name ? ' ' + name : ''}`);
 	}
 
-	docs.push(' */')
+	docs.push(' */');
 
-	return docs.join('\n')
+	return docs.join('\n');
 }
 
-module.exports = { js_docs, log }
+module.exports = { js_docs, log };

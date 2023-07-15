@@ -39,7 +39,7 @@ index.js
 require('ts-interpreter.js'); // register .ts extension and runtime compiler
 const package = require('./main'); // main.ts gets compiled almost instant during runtime
 
-console.log(package.whoami());
+console.log(package.whoami()); // ts-interpreter.js
 ```
 
 main.ts
@@ -51,10 +51,11 @@ export function whoami(): string|any {
 
 # CLI Usage
 ```
-file   : tsi-cli <input.ts> <out.js>
-auto   : tsi-cli <input.ts> - # replaces - to <input.ts>.js
-console: tsi-cli <input.ts> --
+file        : tsi-cli <input.ts> <out.js>
+auto        : tsi-cli <input.ts> - # replaces - to <input.ts>.js
+console     : tsi-cli <input.ts> --
 project-dist: tsi-cli project-dist
+run         : tsi-cli run <input.js/input.ts>
 ```
 
 # Packages

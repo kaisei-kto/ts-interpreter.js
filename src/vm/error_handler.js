@@ -15,8 +15,8 @@ function handle_exception(error, origin) {
 
 		if (typeof line === 'number' && typeof src === 'string' && line !== 0) {
 			const lines = src.split('\n').slice(Math.max(0, (line - 1) - 5)).map(o => fix_code(o)[0]);
-			const prelines = {}
-			let count = Math.max(0, (line - 1) - 5)
+			const prelines = {};
+			let count = Math.max(0, (line - 1) - 5);
 			let size = 0;
 			for (const line of lines) {
 				if (size > 10) break;
@@ -33,7 +33,7 @@ function handle_exception(error, origin) {
 			prelines[line - 1] = `${preline.substring(0, pre_tabs)}\x1b[1m\x1b[41m\x1b[37m${preline.substr(pre_tabs)}\x1b[0m`;
 			log.error(`\x1b[4m${stack?.split('\n')?.find(line => line.startsWith(name))}\x1b[0m`);
 			console.log(`${path}:${line}:${column}\n`);
-			console.log(Object.values(prelines).join('\n'))
+			console.log(Object.values(prelines).join('\n'));
 		}
 	}
 

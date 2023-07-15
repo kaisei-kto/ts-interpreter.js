@@ -1,13 +1,21 @@
 require('clarify-plus');
-// const { parse } = require('@typescript-eslint/parser');
-const { parse } = require('@typescript-eslint/typescript-estree');
+const parser = require('@typescript-eslint/typescript-estree').parse;
+/**
+ * 
+ * @param {string} src 
+ * @param {import('@typescript-eslint/typescript-estree/dist/parser-options').TSESTreeOptions} options 
+ */
+function parse(src, options = {}) {
+	return parser(src, options);
+}
 const { cache } = require('./src/shared');
 const { fix_code } = require('./src/vm/utils');
 const { log } = require('./src/utils');
-const { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, lstatSync } = require('fs');
+const { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync } = require('node:fs');
 const src = require('./src');
-const { join, dirname, basename } = require('path');
+const { join, dirname, basename } = require('node:path');
 const prettier = require('prettier');
+// const p = require('eslint-formatter-pretty');
 const opts = {
 	minify: false,
 	pretty: true,
@@ -15,7 +23,7 @@ const opts = {
 	sample: false
 };
 
-global.__tsi_esm = false;
+// global.__tsi_esm = false;
 
 if (opts.debug && !existsSync('ts.interpreter.js')) {
 	mkdirSync('ts.interpreter.js');
@@ -31,7 +39,7 @@ function check_dir(fpath) {
 }
 
 /**
- * 
+ * @param {string} src
  * @returns {{
  * ast: import('@typescript-eslint/types').TSESTree.Program,
  * error: any
@@ -45,18 +53,9 @@ function parse_src(src) {
 
 	try {
 		object.ast = parse(src, {
+			tokens: true,
 			range: true,
-			comment: true,
-			loc: true,
-			ecmaFeatures: {
-				globalReturn: false,
-				jsx: false
-			},
-			ecmaVersion: 'latest',
-			sourceType: 'module',
-			// errorOnTypeScriptSyntacticAndSemanticIssues: true,
-			emitDecoratorMetadata: true,
-			tokens: true
+			allowAutomaticSingleRunInference: true
 		});
 
 	} catch (e) {
@@ -73,8 +72,10 @@ function parse_src(src) {
  * @returns {string}
  */
 function init(file_path) {
+	let t;
 	if (opts.debug) {
 		log.debug(`Reading and compiling \x1b[1m${file_path}\x1b[0m to \x1b[1mJavaScript\x1b[0m`);
+		t = Date.now();
 	}
 	const content = readFileSync(file_path, 'utf8');
 
@@ -92,6 +93,7 @@ function init(file_path) {
 
 	const compiled_code = src.interpret(ast);
 
+	// let t1 = Date.now();
 	const code = prettier.format(compiled_code, {
 		useTabs: true,
 		tabWidth: 4,
@@ -100,10 +102,14 @@ function init(file_path) {
 		semi: true,
 		filepath: file_path + '.runtime',
 		parser: 'babel-ts',
-		endOfLine: 'crlf'
+		endOfLine: 'auto',
+		printWidth: 250,
+		quoteProps: 'consistent'
 	});
+	// log.debug(`Took ${Date.now()-t1} to fmt`);
 
 	if (opts.debug) {
+		log.debug(`Took \x1b[1m${Date.now() - t} ms\x1b[0m to interpret into \x1b[1mJavaScript\x1b[0m`);
 		const fpath = join('ts.interpreter.js', (file_path + '.js').substr(process.cwd().length));
 		check_dir(fpath);
 		writeFileSync(fpath, code);
