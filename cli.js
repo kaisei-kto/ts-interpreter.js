@@ -2,7 +2,7 @@
 const compile = require('./')();
 const { rmSync } = require('fs');
 const { outputFileSync, readFileSync, readdirSync, existsSync, mkdirSync, lstatSync } = require('fs-extra');
-const { join, resolve } = require('path');
+const { join, resolve, dirname } = require('path');
 const { log } = require('./src/utils');
 
 const tag = `/**
@@ -107,6 +107,7 @@ if (ipath === 'run' && typeof opath === 'string') {
 	if (opath.endsWith('.ts'))
 		log.debug(`Running after compiling \x1b[1m${opath}\x1b[0m to \x1b[1mJavaScript\x1b[0m`);
 
+	process.chdir(dirname(opath));
 	return require(opath);
 }
 

@@ -3,7 +3,7 @@
 	 * @interface
 	 * @typedef ArtworkSearchResponse
 	 * @type {object}
-	 * @property {{ name: string,artworks: { name: string,deathdate: string|null,bio: string }[] }[]} artists
+	 * @property {{ name: string, artworks: { name: string, deathdate: string|null, bio: string }[] }[]} artists
 	 */
 	/**
 	 * @interface

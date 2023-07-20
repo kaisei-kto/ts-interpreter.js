@@ -48,6 +48,7 @@
 	createSphere = createBall;
 	createBall = createSphere;
 	b;
+
 	[createBall(1), createBall(2)].forEach(
 		/**
 		 * @param {any} ball

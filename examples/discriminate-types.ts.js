@@ -1,7 +1,7 @@
 (function () {
 	/**
 	 * @typedef TimingEvent
-	 * @type {{ name: "start",userStarted: boolean }|{ name: "closed",duration: number }}
+	 * @type {{ name: "start", userStarted: boolean }|{ name: "closed", duration: number }}
 	 */
 	/**
 	 * @param {TimingEvent} event
@@ -18,7 +18,7 @@
 	};
 	/**
 	 * @typedef APIResponses
-	 * @type {{ version: 0,msg: string }|{ version: 1,message: string,status: number }|{ error: string }}
+	 * @type {{ version: 0, msg: string }|{ version: 1, message: string, status: number }|{ error: string }}
 	 */
 	/**
 	 * @param {APIResponses} response

@@ -63,7 +63,6 @@
 		}
 	}
 	class MyClass {
-		s: string;
 		/**
 		 * @param {string} s
 		 */

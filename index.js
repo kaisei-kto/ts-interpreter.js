@@ -55,6 +55,7 @@ function parse_src(src) {
 		object.ast = parse(src, {
 			tokens: true,
 			range: true,
+			loc: true,
 			allowAutomaticSingleRunInference: true
 		});
 
@@ -103,7 +104,7 @@ function init(file_path) {
 		filepath: file_path + '.runtime',
 		parser: 'babel-ts',
 		endOfLine: 'auto',
-		printWidth: 250,
+		printWidth: 100,
 		quoteProps: 'consistent'
 	});
 	// log.debug(`Took ${Date.now()-t1} to fmt`);

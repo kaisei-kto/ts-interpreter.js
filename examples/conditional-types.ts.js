@@ -9,11 +9,11 @@
 	 */
 	/**
 	 * @typedef Cheetah
-	 * @type {{ meows: true,fast: true }}
+	 * @type {{ meows: true, fast: true }}
 	 */
 	/**
 	 * @typedef Wolf
-	 * @type {{ barks: true,howls: true }}
+	 * @type {{ barks: true, howls: true }}
 	 */
 	/**
 	 * @typedef ExtractDogish

@@ -6,22 +6,22 @@
 // useful when the value is not important.
 
 enum CompassDirection {
-  North,
-  East,
-  South,
-  West,
+	North,
+	East,
+	South,
+	West,
 }
 
 // By annotating an enum option, you set the value;
 // increments continue from that value:
 
 enum StatusCodes {
-  OK = 200,
-  BadRequest = 400,
-  Unauthorized,
-  PaymentRequired,
-  Forbidden,
-  NotFound,
+	OK = 200,
+	BadRequest = 400,
+	Unauthorized,
+	PaymentRequired,
+	Forbidden,
+	NotFound,
 }
 
 // You reference an enum by using EnumName.Value
@@ -33,7 +33,7 @@ const currentStatus = StatusCodes.OK;
 // to value, and value to key.
 
 const okNumber = StatusCodes.OK;
-const okNumberIndex = StatusCodes["OK"];
+const okNumberIndex = StatusCodes['OK'];
 const stringBadRequest = StatusCodes[400];
 
 // Enums can be different types, a string type is common.
@@ -41,10 +41,10 @@ const stringBadRequest = StatusCodes[400];
 // value at runtime does not require you to look up the number.
 
 enum GamePadInput {
-  Up = "UP",
-  Down = "DOWN",
-  Left = "LEFT",
-  Right = "RIGHT",
+	Up = 'UP',
+	Down = 'DOWN',
+	Left = 'LEFT',
+	Right = 'RIGHT',
 }
 
 // If you want to reduce the number of objects in your
@@ -55,17 +55,17 @@ enum GamePadInput {
 // via an object at runtime.
 
 const enum MouseAction {
-  MouseDown,
-  MouseUpOutside,
-  MouseUpInside,
+	MouseDown,
+	MouseUpOutside,
+	MouseUpInside,
 }
 
 const handleMouseAction = (action: MouseAction) => {
-  switch (action) {
-    case MouseAction.MouseDown:
-      console.log("Mouse Down");
-      break;
-  }
+	switch (action) {
+		case MouseAction.MouseDown:
+			console.log('Mouse Down');
+			break;
+	}
 };
 
 // If you look at the transpiled JavaScript, you can see

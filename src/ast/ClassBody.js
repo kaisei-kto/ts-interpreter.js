@@ -23,7 +23,8 @@ module.exports = ast => {
 			}
 		}
 
-		builder.push(r);
+		
+		if (typeof r === 'string') builder.push(r);
 
 		if (o.type.startsWith('TS')) {
 			// console.log(o, packages[o.type](o))
