@@ -9,6 +9,20 @@ class Point {
 	}
 }
 
+class static_methods {
+	static async method1(s: string, b: boolean) {
+		return true;
+	}
+
+	static method2(f: Function, a: any[]) {
+		return false;
+	}
+
+	method3() {
+		return void -1;
+	}
+}
+
 class Base {
 	k = 4;
 }

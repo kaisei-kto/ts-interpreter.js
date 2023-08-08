@@ -10,9 +10,9 @@ module.exports = ast => {
 	if (ast.declaration) {
 		if ((['TSInterfaceDeclaration', 'TSTypeAliasDeclaration'].indexOf(ast.declaration.type) + 1)) {
 			const body = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
-
+			
 			body.unshift(['exports']);
-
+			
 			return js_docs(body);
 		} else {
 			if (['FunctionDeclaration', 'ArrowFunctionExpression'].indexOf(ast.declaration.type) !== -1) {
@@ -45,11 +45,20 @@ module.exports = ast => {
 
 					if (Array.isArray(value)) {
 						f = value.pop();
+						// console.log(`assign here -> ${f} (${f?.length})`);
 					} else {
 						f = value;
+						// console.log(`assign here 2 -> ${f} (${f?.length})`);
 					}
 
-					const n = f.substring((f.indexOf(ast.declaration.kind + ' ')) + ast.declaration.kind.length + 1, f.indexOf(' ='));
+					while (Array.isArray(f)) {
+						f = f.pop();
+					}
+					
+					let last_index = f.indexOf(' =');
+					if (last_index === -1) last_index = undefined;
+
+					const n = f.substring((f.indexOf(ast.declaration.kind + ' ')) + ast.declaration.kind.length + 1, last_index);
 					return `${f};module.exports.${n} = ${n};`;
 				}
 
@@ -58,6 +67,7 @@ module.exports = ast => {
 				if (value?.indexOf('const ') === 0 || value?.indexOf('var ') === 0 || value?.indexOf('let ') === 0) {
 					n = value.split(' ')[1];
 				}
+
 				return n ? `${value}\nmodule.exports.${n} = ${n}` : `module.exports.${value}`;
 			}
 		}

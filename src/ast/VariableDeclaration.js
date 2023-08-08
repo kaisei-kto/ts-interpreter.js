@@ -15,8 +15,11 @@ module.exports = (ast) => {
 
 		const typing = o.id?.typeAnnotation;
 		if (typing) {
+			// return [ js_docs([['type', packages[typing.type]((typing.parent = o.id) && typing)]]), `${v}${value}` ];
+			// return `${v}${value}`;
 			return `${js_docs([['type', packages[typing.type]((typing.parent = o.id) && typing)]])}\n${v}${value}`;
 		}
+
 		return `${v}${value}`;
 	}).join(', ');
 };

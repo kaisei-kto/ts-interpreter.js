@@ -22,7 +22,6 @@ module.exports = ast => {
 				break;
 			}
 		}
-
 		
 		if (typeof r === 'string') builder.push(r);
 

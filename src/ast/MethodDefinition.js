@@ -9,5 +9,5 @@ module.exports = ast => {
 	let header = Array.isArray(value) ? value.shift() + '\n' : '';
 	let body = Array.isArray(value) ? value.shift() : '';
 
-	return `${header}${['method', 'constructor'].indexOf(ast.kind) === -1 ? ast.kind + ' ' : ''}${body.replace('function (', `${ast.key.name}(`)}`;
+	return `${header}${ast.static ? 'static ' : ''}${['method', 'constructor'].indexOf(ast.kind) === -1 ? ast.kind + ' ' : ''}${body.replace('function (', `${ast.key.name}(`)}`;
 };

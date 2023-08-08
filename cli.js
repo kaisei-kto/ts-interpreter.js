@@ -22,6 +22,9 @@ const cmds = [
 process.argv.splice(0, 2);
 
 let [ipath, opath] = process.argv;
+
+if (typeof opath !== 'string') opath = '--';
+
 function interpret(src, dest) {
 	log.debug(`Reading and compiling \x1b[1m${src}\x1b[0m to \x1b[1mJavaScript\x1b[0m`);
 	const start = Date.now();
@@ -65,12 +68,14 @@ function recursive(path = '.') {
 	return files;
 }
 
-if (ipath === '--help') return log.info(`\n${cmds.join('\n')}`);
+if ([
+	'--help',
+	'-h',
+	'-help'
+].indexOf(ipath?.toLowerCase()) + 1) return log.info(`\n${cmds.join('\n')}`);
 
 if (ipath === 'project-dist') {
-	if (existsSync('ts-interpreter.js-dist')) {
-		rmSync('ts-interpreter.js-dist', { recursive: true, force: true });
-	}
+	if (existsSync('ts-interpreter.js-dist')) rmSync('ts-interpreter.js-dist', { recursive: true, force: true });
 
 	mkdirSync('ts-interpreter.js-dist');
 

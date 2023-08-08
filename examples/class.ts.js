@@ -17,6 +17,26 @@
 			this.y = y;
 		}
 	}
+	class static_methods {
+		/**
+		 * @param {string} s
+		 * @param {boolean} b
+		 */
+		static async method1(s, b) {
+			return true;
+		}
+		/**
+		 * @param {Function} f
+		 * @param {any[]} a
+		 */
+		static method2(f, a) {
+			return false;
+		}
+
+		method3() {
+			return void -1;
+		}
+	}
 	class Base {
 		k = 4;
 	}

@@ -21,7 +21,7 @@ module.exports = (init) => {
 		sandbox.__filename = module.id;
 		sandbox.__dirname = dirname(module.filename);
 		sandbox.module = module;
-		sandbox.global = sandbox;
+		sandbox.global = global;
 		sandbox.root = global;
 
 		const context = createContext(sandbox);
