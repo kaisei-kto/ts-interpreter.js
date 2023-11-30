@@ -6,17 +6,18 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	const builder = ['class'];
+	let identifier;
 	let docs = [];
-
+	
 	if (ast.abstract) {
 		docs.push('abstract');
 	}
 
 	if (ast.id) {
 		if (ast.parent) {
-			builder.unshift(packages[ast.id.type]((ast.id.parent = ast) && ast.id) + ' =');
+			builder.unshift((identifier = packages[ast.id.type]((ast.id.parent = ast) && ast.id)) + ' =');
 		} else {
-			builder.push(packages[ast.id.type]((ast.id.parent = ast) && ast.id));
+			builder.push((identifier = packages[ast.id.type]((ast.id.parent = ast) && ast.id)));
 		}
 	}
 
@@ -35,5 +36,8 @@ module.exports = ast => {
 		builder.unshift(require('../utils').js_docs(docs) + '\n');
 	}
 
-	return `${builder.join(' ')} ${packages['ClassBody']((ast.body.parent = ast) && ast.body)}`;
+	return {
+		declaration: `${builder.join(' ')} ${packages['ClassBody']((ast.body.parent = ast) && ast.body)}`,
+		identifier
+	}
 };

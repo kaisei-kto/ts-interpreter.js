@@ -1,3 +1,4 @@
+const caller = require('caller');
 const { packages } = require('../index');
 
 /**
@@ -14,5 +15,6 @@ module.exports = ast => {
 
 	// 	return identifier;
 	// }).join(', ')})`
+	// console.log(caller());
 	return ['unknown', undefined, 'TSCallSignatureDeclaration'];
 };

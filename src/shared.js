@@ -1,5 +1,6 @@
 module.exports = {
 	cache: {},
+	comments: [],
 	packages: new Proxy({}, {
 		get: (self, key) => {
 			const f = Reflect.get(self, key);

@@ -17,6 +17,7 @@ module.exports = ast => {
 		} else {
 			if (['FunctionDeclaration', 'ArrowFunctionExpression'].indexOf(ast.declaration.type) !== -1) {
 				let [h, f] = packages[ast.declaration.type]((ast.declaration.parent = ast) && ast.declaration);
+				// console.log(h,f);
 				let n = f.substring(f.indexOf('function'), f.indexOf('('));
 				if (n === 'function') {
 					// console.log(f);
@@ -36,38 +37,23 @@ module.exports = ast => {
 					func[0] = `${header} ${n}${params}`;
 					f = func.join('\n');
 				}
+				if (n.startsWith('/**')) return;
 				return `${h !== '' ? h + '\n' : ''}${f};module.exports.${n} = ${n};`;
 			} else {
-				ast.declaration.parent = ast.declaration.type === 'VariableDeclaration' ? undefined : ast;
+				ast.declaration.parent = ['VariableDeclaration' ,'ClassDeclaration'].indexOf(ast.declaration.type) + 1 ? undefined : ast;
+				const value = packages[ast.declaration.type](ast.declaration);
+				const { identifier, declaration } = value;
 				if (!ast.declaration.parent) {
-					const value = packages[ast.declaration.type](ast.declaration);
-					let f;
-
-					if (Array.isArray(value)) {
-						f = value.pop();
-						// console.log(`assign here -> ${f} (${f?.length})`);
-					} else {
-						f = value;
-						// console.log(`assign here 2 -> ${f} (${f?.length})`);
-					}
-
-					while (Array.isArray(f)) {
-						f = f.pop();
-					}
-					
-					let last_index = f.indexOf(' =');
-					if (last_index === -1) last_index = undefined;
-
-					const n = f.substring((f.indexOf(ast.declaration.kind + ' ')) + ast.declaration.kind.length + 1, last_index);
-					return `${f};module.exports.${n} = ${n};`;
+					const n = identifier;
+					return `${declaration};module.exports.${n} = ${n};`;
 				}
 
-				const value = packages[ast.declaration.type](ast.declaration);
 				let n;
 				if (value?.indexOf('const ') === 0 || value?.indexOf('var ') === 0 || value?.indexOf('let ') === 0) {
 					n = value.split(' ')[1];
 				}
 
+				if (typeof n === 'string' ? n.startsWith('/**') : value.startsWith('/**')) return;
 				return n ? `${value}\nmodule.exports.${n} = ${n}` : `module.exports.${value}`;
 			}
 		}

@@ -22,6 +22,7 @@ enum StatusCodes {
 	PaymentRequired,
 	Forbidden,
 	NotFound,
+	BadRequestv2 = BadRequest
 }
 
 // You reference an enum by using EnumName.Value
@@ -62,9 +63,9 @@ const enum MouseAction {
 
 const handleMouseAction = (action: MouseAction) => {
 	switch (action) {
-		case MouseAction.MouseDown:
-			console.log('Mouse Down');
-			break;
+	case MouseAction.MouseDown:
+		console.log('Mouse Down');
+		break;
 	}
 };
 

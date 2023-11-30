@@ -8,9 +8,9 @@ module.exports = ast => {
 	const v = ast.argument ? packages[ast.argument.type]((ast.argument.parent = ast) && ast.argument) : '';
 
 	if (Array.isArray(v)) {
-		return `${v.shift()}\nreturn${ast.argument ? ' ' + v.shift() : ''}`;
+		return `${v.shift()}\nreturn${ast.argument ? ' ' + v.shift() : ''};`;
 	}
 
 
-	return `return${ast.argument ? ' ' + v : ''}`;
+	return `return${ast.argument ? ' ' + v : ''};`;
 };

@@ -1,5 +1,13 @@
 const caller = require('caller');
+const { readFileSync } = require('node:fs');
+const { join } = require('node:path');
 const { inspect } = require('node:util');
+
+let is_debug = false;
+try {
+	is_debug = JSON.parse(readFileSync('ts-interpreter.json', 'utf8')).debug;
+} catch { }
+
 
 const log = {};
 const title = 'ts-interpreter';
@@ -39,6 +47,10 @@ const colors = {
 
 function build_console(label) {
 	return function () {
+		if (label === 'debug' && !is_debug) {
+			if (caller() !== join(__dirname, '..', 'cli.js')) return;
+		}
+		
 		arguments = Array.from(arguments);
 		const builder = [`[${colors[label].join('')}${title}${colors.reset}]`];
 

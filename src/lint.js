@@ -6,22 +6,22 @@ linter.defineParser('@typescript-eslint/parser', parser);
 linter.defineRule('block-scoped-var', require('@mysticatea/eslint-plugin').rules['block-scoped-var']);
 linter.defineRule('detect-no-assignment', require('eslint-plugin-detect-no-assignment').rules['detect-no-assignment']);
 
-module.exports = function(src) {
+module.exports = function (src) {
 	const result = linter.verify(src, {
 		env: {
 			browser: false,
 			commonjs: true,
 			es2021: true,
-			node: true
+			node: true,
 		},
-		extends: [ 'eslint:recommended' ],
+		extends: ['eslint:recommended'],
 		parser: '@typescript-eslint/parser',
 		parserOptions: {
 			ecmaVersion: 2024,
 			sourceType: 'module',
 			ecmaFeatures: {
-				impliedStrict: false
-			}
+				impliedStrict: false,
+			},
 		},
 		noInlineConfig: true,
 		rules: {
@@ -30,9 +30,9 @@ module.exports = function(src) {
 			'no-undef-init': 'error',
 			'valid-typeof': 'error',
 			'block-scoped-var': 'error',
-			'detect-no-assignment': 'error'
-		}
+			'detect-no-assignment': 'error',
+		},
 	});
-	
+
 	return result;
-}
+};

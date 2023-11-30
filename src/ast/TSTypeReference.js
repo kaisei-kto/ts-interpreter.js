@@ -6,8 +6,8 @@ const { packages } = require('../index');
  */
 module.exports = ast => {
 	let header = packages[ast.typeName.type]((ast.typeName.parent = ast) && ast.typeName);
-	if (ast.typeParameters) {
-		header += `<${ast.typeParameters.params.map(o => packages['TSTypeAnnotation']((o.parent = ast) && o)).join(', ')}>`;
+	if (ast.typeArguments) {
+		header += `<${ast.typeArguments.params.map(o => packages['TSTypeAnnotation']((o.parent = ast) && o)).join(', ')}>`;
 	}
 
 	return header;

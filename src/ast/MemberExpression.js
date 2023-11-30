@@ -8,7 +8,7 @@ module.exports = ast => {
 	let property = packages[ast.property.type]((ast.property.parent = ast) && ast.property);
 
 	if (ast.computed) property = `[${property}]`;
-	else property = `${ast.optional ? '?' : ''}.${property}`;
+	property = `${ast.optional ? '?' : ''}.${property}`;
 
 	return `${packages[ast.object.type]((ast.object.parent = ast) && ast.object)}${property}`;
 };

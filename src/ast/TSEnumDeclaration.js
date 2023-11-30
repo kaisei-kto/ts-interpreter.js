@@ -9,6 +9,7 @@ module.exports = ast => {
 	let idx = 0;
 
 	const enums = {};
+	let missing = {};
 
 	// build enums
 	ast.members.map(o => {
@@ -19,12 +20,12 @@ module.exports = ast => {
 			if (typeof initializer === 'string') {
 				try {
 					val = eval(initializer);
-
 					if (o.initializer.type === 'Identifier') throw '';
 					if (typeof val !== 'string' && typeof val !== 'number') throw '';
 					if (typeof val === 'number' && isNaN(val)) throw '';
 				} catch (e) {
-					log.error(`Enum Error Warning: Unable to convert value to number/string [${name}: ${initializer}]`);
+					missing[name] = initializer;
+					return;
 				}
 			}
 
@@ -46,5 +47,17 @@ module.exports = ast => {
 		// return builder.join(': ');
 	});
 	
+	for (const [ key, value ] of Object.entries(missing)) {
+		const e1 = enums[key];
+		const e2 = enums[JSON.stringify(value)];
+
+		if (typeof e1 === 'number' || typeof e2 === 'number') {
+			// console.log(key, value, e1,e2);
+			enums[key] = typeof e1 === 'number' ? e1 : e2;
+		} else {
+			log.error(`Enum Error Warning: Unable to convert value to number/string [${key}: ${value}]`);
+		}
+	}
+
 	return `const ${packages[ast.id.type]((ast.id.parent = ast) && ast.id)} = { ${Object.keys(enums).map(v => `${v}: ${enums[v]}`).join(', ')} }`;
 };

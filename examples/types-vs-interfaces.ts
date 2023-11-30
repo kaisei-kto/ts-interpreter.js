@@ -4,7 +4,7 @@
 // They are very similar, and for the most common cases
 // act the same.
 
-type BirdType = {
+export type BirdType = {
 	wings: 2;
 };
 

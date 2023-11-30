@@ -4,12 +4,12 @@ const { js_docs } = require('../utils');
 const BlockStatement = require('./BlockStatement');
 
 /**
- * 
- * @param {import("@typescript-eslint/types/dist/generated/ast-spec").FunctionDeclaration} ast 
+ *
+ * @param {import("@typescript-eslint/types/dist/generated/ast-spec").FunctionDeclaration} ast
  */
 module.exports = (ast) => {
 	let fheader = `${ast.async ? 'async ' : ''}function${ast.generator ? '*' : ''}`;
-	let fparams = ast.params.map(o => packages[o.type]((o.parent = ast) && o)).join(', ');
+	let fparams = ast.params.map((o) => packages[o.type]((o.parent = ast) && o)).join(', ');
 
 	if (ast.parent) {
 		fheader = `${ast.id.name} = ${fheader}`;
