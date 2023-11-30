@@ -1,10 +1,10 @@
 const { packages } = require('../index');
 
 /**
- * 
- * @param {import("@typescript-eslint/types/dist/generated/ast-spec").Property} ast 
+ *
+ * @param {import("@typescript-eslint/types/dist/generated/ast-spec").Property} ast
  */
-module.exports = ast => {
+module.exports = (ast) => {
 	const key = packages[ast.key.type]((ast.key.parent = ast) && ast.key);
 	let comment = '';
 	let value = packages[ast.value.type]((ast.value.parent = ast) && ast.value);
@@ -20,10 +20,12 @@ module.exports = ast => {
 		return key;
 	}
 
-
 	if (ast.kind !== 'init') {
 		footer = footer.split(' ');
-		footer.splice(footer.findIndex(s => s === 'function'), 1);
+		footer.splice(
+			footer.findIndex((s) => s === 'function'),
+			1,
+		);
 
 		header = `${ast.kind} ${header}`;
 		footer = footer.join(' ');
